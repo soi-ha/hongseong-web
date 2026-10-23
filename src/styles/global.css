@@ -40,6 +40,8 @@
   --shadow-slide: 0 8px 24px rgb(0 0 0 / 15%);
   --color-modal-backdrop: rgb(0 0 0 / 48%);
   --shadow-modal: 0 16px 64px rgb(0 0 0 / 20%);
+  --source-dialog-max-height: 40rem;
+  --source-link-height: 4.5rem;
   --slide-preview-scale: 0.8;
   --font-body: 'A2Z', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   --font-display: 'Bebas Neue', var(--font-body);

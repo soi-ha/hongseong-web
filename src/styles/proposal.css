@@ -46,29 +46,31 @@ body:has(.proposal-reader) .site-header { flex-shrink: 0; }
 .proposal-reader.is-presenting .reader-status { bottom: 110px; }
 
 /* Source links stay in a native modal above the unchanged slide. */
-.source-dialog { width: min(42rem, calc(100vw - var(--space-8))); max-height: calc(100dvh - var(--space-12)); margin: auto; padding: 0; border: 1px solid var(--color-border); border-radius: var(--radius-small); background: var(--color-background); color: var(--color-text); box-shadow: var(--shadow-modal); }
+.source-dialog { width: min(42rem, calc(100vw - var(--space-8))); max-height: min(var(--source-dialog-max-height), calc(100dvh - var(--space-12))); overflow: hidden; margin: auto; padding: 0; border: 1px solid var(--color-border); border-radius: var(--radius-small); background: var(--color-background); color: var(--color-text); box-shadow: var(--shadow-modal); }
 .source-dialog[open] { display: flex; flex-direction: column; }
 .source-dialog::backdrop { background: var(--color-modal-backdrop); }
 .source-dialog-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-shrink: 0; padding: var(--space-3) var(--space-6); border-bottom: 1px solid var(--color-border); }
 .source-dialog-header h2 { margin: 0; font-size: var(--font-size-subheading); color: var(--color-heading); }
 .source-dialog-close { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--radius-small); background: transparent; color: var(--color-text); cursor: pointer; font: inherit; font-size: 1.75rem; }
 .source-dialog-close:hover { background: var(--color-surface); }
-.source-dialog-body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: var(--space-6) var(--space-6) var(--space-8); }
+.source-dialog-body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; padding: var(--space-6) var(--space-6) var(--space-8); }
 .source-slide-number { margin: 0; color: var(--color-muted); font-size: var(--font-size-small); font-variant-numeric: tabular-nums; }
 .source-page-content h3 { margin: var(--space-2) 0 var(--space-6); font-size: 1.25rem; font-weight: var(--font-weight-heading); line-height: 1.5; color: var(--color-heading); }
 .source-link-list { display: grid; gap: var(--space-3); list-style: none; margin: 0; padding: 0; }
-.source-link-list a { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); min-height: 44px; padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-small); text-decoration: none; }
+.source-link-list a { display: flex; align-items: center; justify-content: space-between; gap: var(--space-3); height: var(--source-link-height); padding: var(--space-1) var(--space-3); border: 1px solid var(--color-border); border-radius: var(--radius-small); text-decoration: none; }
 .source-link-list a:hover { border-color: var(--color-accent); background: var(--color-surface); }
+.source-link-copy { min-width: 0; }
+.source-link-arrow { flex-shrink: 0; }
 .source-link-label, .source-link-domain { display: block; overflow-wrap: anywhere; }
-.source-link-label { font-size: var(--font-size-navigation); color: var(--color-accent-dark); }
-.source-link-domain { margin-top: var(--space-1); font-size: var(--font-size-small); color: var(--color-muted); }
+.source-link-label { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: var(--font-size-navigation); line-height: 1.25; color: var(--color-accent-dark); }
+.source-link-domain { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: var(--font-size-small); line-height: 1.25; color: var(--color-muted); }
 .source-empty { margin: 0; padding: var(--space-4); background: var(--color-surface-subtle); color: var(--color-muted); font-size: var(--font-size-small); }
 .source-remarks { margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--color-border); font-size: var(--font-size-small); line-height: 1.75; }
 .source-remarks h4 { margin: 0 0 var(--space-3); color: var(--color-heading); font-size: inherit; font-weight: var(--font-weight-heading); }
 .source-remarks p { margin: var(--space-2) 0; overflow-wrap: anywhere; }
 
 @media (max-width: 48rem) {
-  .source-dialog { max-height: calc(100dvh - var(--space-8)); }
+  .source-dialog { max-height: min(var(--source-dialog-max-height), calc(100dvh - var(--space-8))); }
   .source-dialog-header { padding-inline: var(--space-4); }
   .source-dialog-body { padding: var(--space-4); }
   .toc-inner { gap: var(--space-4); }
