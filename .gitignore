@@ -1,0 +1,23 @@
+# Dependencies and generated output
+node_modules/
+dist/
+.astro/
+.wrangler/
+coverage/
+
+# Local secrets; only a secret-free example may be committed
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+
+# Logs and operating-system/editor temporary files
+*.log
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+*.swp
+*.swo
+*~

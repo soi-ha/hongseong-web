@@ -1,0 +1,29 @@
+---
+interface Props {
+  activePage: 'proposal' | 'research';
+}
+
+const { activePage } = Astro.props;
+// Site-level navigation only. Proposal section links belong inside that page.
+const pages = [
+  { id: 'proposal', href: '/', label: '제안서' },
+  { id: 'research', href: '/research/', label: '자료조사' },
+] as const;
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="site-name" href="/">홍성 제안·자료조사</a>
+    <nav aria-label="사이트 메뉴">
+      <ul class="site-menu">
+        {pages.map((page) => (
+          <li>
+            <a href={page.href} aria-current={activePage === page.id ? 'page' : undefined}>
+              {page.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</header>

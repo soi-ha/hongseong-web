@@ -1,0 +1,33 @@
+---
+import SiteHeader from '../components/SiteHeader.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  activePage: 'proposal' | 'research';
+}
+
+const { title, description, activePage } = Astro.props;
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} | 홍성 제안·자료조사</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">본문으로 이동</a>
+    <SiteHeader activePage={activePage} />
+    <main id="main-content" class="container main-content" tabindex="-1">
+      <h1>{title}</h1>
+      <!-- A future in-page table of contents belongs here, separate from SiteHeader. -->
+      <slot name="page-navigation" />
+      <slot />
+    </main>
+  </body>
+</html>
