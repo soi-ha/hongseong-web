@@ -20,6 +20,7 @@ assert.equal((html.match(/class="slide-artwork"/g) ?? []).length, 30, '30 visual
 assert.ok(!html.includes('id="page-select"'), 'No page select box');
 assert.ok(html.includes('id="fullscreen-toggle"'), 'Fullscreen control');
 assert.ok(!html.includes('<del>'), 'Numeric ranges must not become strikethrough');
+assert.ok(!html.includes('source-empty') && !html.includes('이 페이지에 등록된 외부 출처 링크가 없습니다.'), 'No empty source notice');
 const sections = [...source.matchAll(/^## (\d{2})\. (.+)$/gm)];
 let statements = 0;
 let linkCount = 0;
@@ -42,10 +43,11 @@ for (let i = 0; i < sections.length; i++) {
   }
   const expectedLinks = [...new Set(hrefs(expected))].sort();
   assert.deepEqual(hrefs(pages.get(number)).sort(), expectedLinks, `page ${number}: exact source URLs, no cross-page links`);
-  if (!expectedLinks.length) assert.ok(pages.get(number).includes('이 페이지에 등록된 외부 출처 링크가 없습니다.'), `page ${number}: honest empty state`);
+  if (!expectedLinks.length) assert.ok(!pages.get(number).includes('source-link-list'), `page ${number}: omit empty link section`);
   linkCount += expectedLinks.length;
 }
 assert.deepEqual(hrefs(pages.get(30)).sort(), hrefs(pages.get(1)).sort(), 'Closing and cover use the same photo sources');
+assert.ok(!pages.get(30).includes('참고·확인 사항'), 'Closing has no empty remarks heading');
 for (const [, anchor] of html.matchAll(/(<a\b[^>]*href="https?:[^>]*>)/g)) {
   assert.ok(anchor.includes('target="_blank"') && anchor.includes('rel="noopener noreferrer"'), 'Sources open safely in a new tab');
 }

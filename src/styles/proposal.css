@@ -64,8 +64,8 @@ body:has(.proposal-reader) .site-header { flex-shrink: 0; }
 .source-link-label, .source-link-domain { display: block; overflow-wrap: anywhere; }
 .source-link-label { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; font-size: var(--font-size-navigation); line-height: 1.25; color: var(--color-accent-dark); }
 .source-link-domain { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font-size: var(--font-size-small); line-height: 1.25; color: var(--color-muted); }
-.source-empty { margin: 0; padding: var(--space-4); background: var(--color-surface-subtle); color: var(--color-muted); font-size: var(--font-size-small); }
-.source-remarks { margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--color-border); font-size: var(--font-size-small); line-height: 1.75; }
+.source-remarks { font-size: var(--font-size-small); line-height: 1.75; }
+.source-link-list + .source-remarks, .source-remarks + .source-remarks { margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--color-border); }
 .source-remarks h4 { margin: 0 0 var(--space-3); color: var(--color-heading); font-size: inherit; font-weight: var(--font-weight-heading); }
 .source-remarks p { margin: var(--space-2) 0; overflow-wrap: anywhere; }
 
