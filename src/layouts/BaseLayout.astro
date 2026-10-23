@@ -1,16 +1,18 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
+import { SITE_NAME } from '../config/site';
 import '../styles/global.css';
 
 interface Props {
   title: string;
+  browserTitle?: string;
   description: string;
   activePage: 'proposal' | 'ideas' | 'research';
   customHeading?: boolean;
   mainClass?: string;
 }
 
-const { title, description, activePage, customHeading = false, mainClass } = Astro.props;
+const { title, browserTitle = title, description, activePage, customHeading = false, mainClass } = Astro.props;
 ---
 
 <!doctype html>
@@ -21,7 +23,10 @@ const { title, description, activePage, customHeading = false, mainClass } = Ast
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
     <meta name="robots" content="noindex, nofollow, noarchive" />
-    <title>{title} | 홍성 제안·자료조사</title>
+    <meta name="application-name" content={SITE_NAME} />
+    <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" sizes="any" />
+    <title>{browserTitle} | {SITE_NAME}</title>
   </head>
   <body>
     <a class="skip-link" href="#main-content">본문으로 이동</a>

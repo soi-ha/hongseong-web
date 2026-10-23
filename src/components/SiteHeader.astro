@@ -1,4 +1,6 @@
 ---
+import { SITE_NAME } from '../config/site';
+
 interface Props {
   activePage: 'proposal' | 'ideas' | 'research';
 }
@@ -14,7 +16,7 @@ const pages = [
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="site-name" href="/">홍성 제안·자료조사</a>
+    <a class="site-name" href="/">{SITE_NAME}</a>
     <nav aria-label="사이트 메뉴">
       <ul class="site-menu">
         {pages.map((page) => (
