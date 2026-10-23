@@ -8,7 +8,7 @@ const { section } = Astro.props;
   data-source-page={section.number} aria-labelledby={`${section.id}-title`}>
   <header class="article-heading">
     <p class="article-label"><span class="display-title" lang="en">{section.english}</span><span>{section.category}</span><span class="source-page">{String(section.number).padStart(2, '0')} / 29</span></p>
-    <h3 id={`${section.id}-title`} set:html={section.title} />
+    <h2 id={`${section.id}-title`} set:html={section.title} />
   </header>
   <div class="article-main">
     <div class="prose" set:html={section.html} />
