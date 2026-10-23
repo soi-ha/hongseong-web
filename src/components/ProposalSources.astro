@@ -1,0 +1,30 @@
+---
+import { getSourceDetails } from '../lib/proposal-sources';
+import type { ProposalSection } from '../lib/proposal';
+interface Props { sections: ProposalSection[]; total: number }
+const { sections, total } = Astro.props;
+const sources = Array.from({length: total}, (_, index) => {
+  const section = sections[index];
+  // The v03 closing uses the same Gungri photo as the cover.
+  const photo = section?.photo ?? (index === total - 1 ? sections[0]?.photo : undefined);
+  return { number: index + 1, title: section?.title ?? 'THANK YOU', photo,
+    ...getSourceDetails({ notes: section?.notes, photo }), closing: !section };
+});
+---
+<dialog class="source-dialog" id="source-dialog" aria-labelledby="source-dialog-title">
+  <header class="source-dialog-header">
+    <h2 id="source-dialog-title">출처</h2>
+    <button id="source-dialog-close" class="source-dialog-close" type="button" aria-label="출처 닫기" autofocus><span aria-hidden="true">×</span></button>
+  </header>
+  <div class="source-dialog-body">
+    {sources.map(({number, title, links, paragraphs, photo, closing}) => <section class="source-page-content" data-source-page={number} aria-labelledby={`source-title-${number}`} hidden>
+      <p class="source-slide-number">{number} / {total}</p>
+      <h3 id={`source-title-${number}`} set:html={title} />
+      {links.length ? <ul class="source-link-list">{links.map(link => <li>
+        <a href={link.href} target="_blank" rel="noopener noreferrer"><span><span class="source-link-label">{link.label}</span><span class="source-link-domain">{link.domain}</span></span><span aria-hidden="true">↗</span><span class="sr-only">새 탭에서 열기</span></a>
+      </li>)}</ul> : <p class="source-empty">이 페이지에 등록된 외부 출처 링크가 없습니다.</p>}
+      {paragraphs.length > 0 && <div class="source-remarks"><h4>참고·확인 사항</h4>{paragraphs.map(paragraph => <p set:html={paragraph} />)}</div>}
+      {closing && photo && <div class="source-remarks"><h4>사진 정보</h4><p>{photo.caption}</p><p>제공/촬영: {photo.provider}</p><p>사용권: {photo.license}</p></div>}
+    </section>)}
+  </div>
+</dialog>

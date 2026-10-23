@@ -32,8 +32,7 @@ body:has(.proposal-reader) .site-header { flex-shrink: 0; }
 .page-arrow > span[aria-hidden] { font-size: 1.5rem; line-height: 1; }
 .reader-controls button:hover:not(:disabled) { border-color: var(--color-accent); background: var(--color-surface); }
 .reader-controls button:disabled { opacity: 0.3; cursor: default; }
-.reader-controls .reader-text-toggle { font-size: var(--font-size-small); border-color: transparent; padding-inline: var(--space-2); color: var(--color-muted); }
-.reader-text-toggle[aria-pressed='true'] { text-decoration: underline; text-underline-offset: 5px; }
+.reader-controls .reader-source-button { font-size: var(--font-size-small); border-color: transparent; padding-inline: var(--space-2); color: var(--color-muted); }
 .reader-status { position: absolute; bottom: 110px; left: 50%; transform: translateX(-50%); width: min(90%, 38rem); margin: 0; padding: var(--space-3) var(--space-4); border: 1px solid var(--color-border); background: var(--color-background); border-radius: var(--radius-small); font-size: var(--font-size-small); z-index: 3; }
 
 /* Native fullscreen and the explicit in-window fallback share the presentation layout. */
@@ -46,41 +45,32 @@ body:has(.proposal-reader) .site-header { flex-shrink: 0; }
 .proposal-reader.is-presenting.controls-idle .reader-controls { opacity: 0; pointer-events: none; transform: translateY(8px); }
 .proposal-reader.is-presenting .reader-status { bottom: 110px; }
 
-/* Selectable text, tables and original source notes remain available on demand. */
-.proposal-reader[data-view='text'] .reader-stage { overflow: auto; overscroll-behavior: contain; }
-.proposal-reader[data-view='text'] .proposal-page { height: auto; min-height: 100%; container-type: normal; display: block; }
-.proposal-reader.is-presenting[data-view='text'] .reader-stage { padding: var(--space-8) var(--page-gutter) 120px; }
-.slide-text { max-width: 68rem; padding-block: var(--space-4); }
-.article-label { display: flex; gap: var(--space-3); align-items: baseline; font-size: var(--font-size-small); color: var(--color-muted); margin: 0 0 var(--space-3); }
-.article-label .display-title { font-size: 1.25rem; color: var(--color-accent); }
-.source-page { margin-left: auto; white-space: nowrap; }
-.article-heading h2 { font-size: var(--font-size-article-title); line-height: 1.45; color: var(--color-title, var(--color-heading)); margin: 0 0 var(--space-6); }
-.article-main, .prose { min-width: 0; }
-.has-photo .article-main { display: grid; grid-template-columns: 1fr 1.08fr; gap: var(--space-12); align-items: start; }
-.prose > :first-child { margin-top: 0; }
-.prose p { margin-block: var(--space-4); }
-.prose h4 { font-size: var(--font-size-subheading); font-weight: var(--font-weight-heading); line-height: 1.5; color: var(--color-title, var(--color-heading)); margin: var(--space-6) 0 var(--space-2); }
-.prose blockquote { margin: var(--space-6) 0 0; padding: var(--space-4) var(--space-6); background: var(--color-surface); border-left: 3px solid var(--color-accent); color: var(--color-condition, var(--color-text)); font-size: var(--font-size-small); }
-.prose blockquote p { margin: 0; }
-.prose a, .source-notes a { text-underline-offset: 3px; overflow-wrap: anywhere; }
-.prose .table-scroll { margin-block: var(--space-6); overflow-x: auto; border-top: 2px solid var(--color-accent); }
-.prose table { border-collapse: collapse; width: 100%; min-width: 680px; font-size: var(--font-size-table); line-height: 1.75; }
-.prose th, .prose td { padding: var(--space-4) var(--space-6); text-align: left; border-bottom: 1px solid var(--color-table-rule, var(--color-border)); vertical-align: middle; }
-.prose th { background: var(--color-surface); color: var(--color-heading); font-weight: var(--font-weight-heading); }
-.prose td:first-child { color: var(--color-table-text, var(--color-heading)); }
-.prose th:first-child, .prose td:first-child { min-width: 8rem; }
-.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: var(--space-6); margin-block: var(--space-8); }
-.step { border-top: 2px solid var(--color-accent); padding-top: var(--space-4); }
-.step h4 { font-size: 1.125rem; margin-top: 0; }
-.proposal-photo { margin: 0; min-width: 0; }
-.proposal-photo img { display: block; width: 100%; height: auto; }
-.proposal-photo figcaption { display: flex; gap: var(--space-3); flex-wrap: wrap; justify-content: space-between; margin-top: var(--space-3); font-size: var(--font-size-small); color: var(--color-muted); }
-.proposal-photo figcaption a { color: var(--color-heading); }
-.source-notes { font-size: var(--font-size-small); margin-top: var(--space-6); }
-.source-notes summary { cursor: pointer; padding-block: var(--space-3); color: var(--color-muted); min-height: 44px; }
-.source-notes details[open] { padding-bottom: var(--space-4); border-bottom: 1px solid var(--color-border); }
-.source-notes details > p { margin: var(--space-2) 0 var(--space-3); max-width: 90ch; overflow-wrap: anywhere; }
+/* Source links stay in a native modal above the unchanged slide. */
+.source-dialog { width: min(42rem, calc(100vw - var(--space-8))); max-height: calc(100dvh - var(--space-12)); margin: auto; padding: 0; border: 1px solid var(--color-border); border-radius: var(--radius-small); background: var(--color-background); color: var(--color-text); box-shadow: var(--shadow-modal); }
+.source-dialog[open] { display: flex; flex-direction: column; }
+.source-dialog::backdrop { background: var(--color-modal-backdrop); }
+.source-dialog-header { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); flex-shrink: 0; padding: var(--space-3) var(--space-6); border-bottom: 1px solid var(--color-border); }
+.source-dialog-header h2 { margin: 0; font-size: var(--font-size-subheading); color: var(--color-heading); }
+.source-dialog-close { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--radius-small); background: transparent; color: var(--color-text); cursor: pointer; font: inherit; font-size: 1.75rem; }
+.source-dialog-close:hover { background: var(--color-surface); }
+.source-dialog-body { min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: var(--space-6) var(--space-6) var(--space-8); }
+.source-slide-number { margin: 0; color: var(--color-muted); font-size: var(--font-size-small); font-variant-numeric: tabular-nums; }
+.source-page-content h3 { margin: var(--space-2) 0 var(--space-6); font-size: 1.25rem; font-weight: var(--font-weight-heading); line-height: 1.5; color: var(--color-heading); }
+.source-link-list { display: grid; gap: var(--space-3); list-style: none; margin: 0; padding: 0; }
+.source-link-list a { display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); min-height: 44px; padding: var(--space-4); border: 1px solid var(--color-border); border-radius: var(--radius-small); text-decoration: none; }
+.source-link-list a:hover { border-color: var(--color-accent); background: var(--color-surface); }
+.source-link-label, .source-link-domain { display: block; overflow-wrap: anywhere; }
+.source-link-label { font-size: var(--font-size-navigation); color: var(--color-accent-dark); }
+.source-link-domain { margin-top: var(--space-1); font-size: var(--font-size-small); color: var(--color-muted); }
+.source-empty { margin: 0; padding: var(--space-4); background: var(--color-surface-subtle); color: var(--color-muted); font-size: var(--font-size-small); }
+.source-remarks { margin-top: var(--space-6); padding-top: var(--space-6); border-top: 1px solid var(--color-border); font-size: var(--font-size-small); line-height: 1.75; }
+.source-remarks h4 { margin: 0 0 var(--space-3); color: var(--color-heading); font-size: inherit; font-weight: var(--font-weight-heading); }
+.source-remarks p { margin: var(--space-2) 0; overflow-wrap: anywhere; }
+
 @media (max-width: 48rem) {
+  .source-dialog { max-height: calc(100dvh - var(--space-8)); }
+  .source-dialog-header { padding-inline: var(--space-4); }
+  .source-dialog-body { padding: var(--space-4); }
   .toc-inner { gap: var(--space-4); }
   .toc-inner ol { gap: var(--space-4); }
   .toc-number, .arrow-label, .fullscreen-label { display: none; }
@@ -88,15 +78,10 @@ body:has(.proposal-reader) .site-header { flex-shrink: 0; }
   .reader-controls { padding: var(--space-4) 0 calc(var(--space-6) + env(safe-area-inset-bottom)); }
   .reader-controls-inner, .reader-position, .reader-actions { gap: var(--space-2); }
   .reader-controls button { min-width: 44px; padding-inline: var(--space-2); }
-  .reader-controls .reader-text-toggle { font-size: 0.75rem; padding-inline: 0; }
+  .reader-controls .reader-source-button { font-size: 0.75rem; padding-inline: 0; }
   #page-counter { min-width: 3.25rem; }
   .proposal-reader.is-presenting .reader-controls { left: var(--space-3); right: var(--space-3); width: calc(100% - var(--space-6)); bottom: max(var(--space-4), env(safe-area-inset-bottom)); }
   .proposal-reader.is-presenting .reader-controls-inner { width: calc(100% - var(--space-6)); }
-  .has-photo .article-main { grid-template-columns: 1fr; gap: var(--space-6); }
-  .article-label > span:nth-child(2) { display: none; }
-  .prose th, .prose td { padding: var(--space-3) var(--space-4); }
-  .prose .table-scroll::before { content: '표를 좌우로 밀어 전체 내용을 확인할 수 있습니다.'; display: block; position: sticky; left: 0; padding: var(--space-2) 0; font-size: 0.75rem; color: var(--color-muted); }
-  .steps { grid-template-columns: 1fr; }
 }
 @media (max-width: 24rem) {
   .reader-controls-inner, .reader-position, .reader-actions { gap: var(--space-1); }
@@ -105,7 +90,7 @@ body:has(.proposal-reader) .site-header { flex-shrink: 0; }
 @media (prefers-reduced-motion: reduce) { .reader-controls { transition: none !important; } }
 @media print {
   body:has(.proposal-reader) { height: auto; display: block; overflow: visible; }
-  .site-header, .proposal-navigation, .reader-controls, .slide-text { display: none !important; }
+  .site-header, .proposal-navigation, .reader-controls, .source-dialog { display: none !important; }
   .proposal-main, .proposal-reader, .reader-surface, .reader-stage { display: block; overflow: visible; padding: 0; }
   .proposal-page[hidden], .slide-artwork[hidden] { display: block !important; }
   .proposal-page { height: auto; break-after: page; container-type: normal; display: block; }

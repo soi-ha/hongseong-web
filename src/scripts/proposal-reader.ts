@@ -7,12 +7,15 @@ if (reader) {
   const counter = reader.querySelector<HTMLElement>('#page-counter')!;
   const controls = reader.querySelector<HTMLElement>('.reader-controls')!;
   const fullscreen = reader.querySelector<HTMLButtonElement>('#fullscreen-toggle')!;
-  const textToggle = reader.querySelector<HTMLButtonElement>('#text-toggle')!;
+  const sourceButton = reader.querySelector<HTMLButtonElement>('#source-button')!;
+  const sourceDialog = reader.querySelector<HTMLDialogElement>('#source-dialog')!;
+  const sourcePanels = [...sourceDialog.querySelectorAll<HTMLElement>('[data-source-page]')];
+  const sourceBody = sourceDialog.querySelector<HTMLElement>('.source-dialog-body')!;
+  const sourceClose = sourceDialog.querySelector<HTMLButtonElement>('#source-dialog-close')!;
   const status = reader.querySelector<HTMLElement>('#reader-status')!;
   const outsideNavigation = [...document.querySelectorAll<HTMLElement>('body > .site-header, body > .skip-link')].map(element => ({element, inert: element.inert}));
   const menu = [...reader.querySelectorAll<HTMLAnchorElement>('.proposal-navigation a')];
   let current = -1;
-  let textView = false;
   let presenting = false;
   let fullscreenPending = false;
   let idleTimer: ReturnType<typeof setTimeout>;
@@ -22,19 +25,8 @@ if (reader) {
     reader!.classList.remove('controls-idle');
     clearTimeout(idleTimer);
     if (presenting) idleTimer = setTimeout(() => {
-      if (!controls.contains(document.activeElement)) reader!.classList.add('controls-idle');
+      if (!sourceDialog.open && !controls.contains(document.activeElement)) reader!.classList.add('controls-idle');
     }, 2200);
-  }
-
-  function renderView() {
-    reader!.dataset.view = textView ? 'text' : 'slide';
-    for (const [index, page] of pages.entries()) {
-      page.querySelector<HTMLElement>('.slide-text')!.hidden = !textView || index !== current;
-      page.querySelector<HTMLImageElement>('.slide-artwork')!.hidden = textView;
-    }
-    textToggle.setAttribute('aria-pressed', String(textView));
-    textToggle.textContent = textView ? '슬라이드 보기' : '본문·출처';
-    stage.scrollTo({ top: 0, behavior: 'instant' });
   }
 
   function setPresenting(value: boolean) {
@@ -47,11 +39,9 @@ if (reader) {
     fullscreen.title = label + (value ? ' (Esc)' : ' (F)');
     fullscreen.querySelector('.fullscreen-label')!.textContent = value ? '전체 화면 종료' : '전체 화면';
     if (value) {
-      textView = false;
-      renderView();
-      stage.focus({ preventScroll: true });
+      if (!sourceDialog.open) stage.focus({ preventScroll: true });
     } else {
-      fullscreen.focus({ preventScroll: true });
+      if (!sourceDialog.open) fullscreen.focus({ preventScroll: true });
       status.hidden = true;
     }
     revealControls();
@@ -103,6 +93,7 @@ if (reader) {
 
   function showPage(index: number, pushHistory = false) {
     if (index < 0 || index >= pages.length) return;
+    if (sourceDialog.open) sourceDialog.close();
     const oldPage = pages[current];
     const focused = document.activeElement;
     const moveFocus = (oldPage?.contains(focused) ?? false)
@@ -115,7 +106,6 @@ if (reader) {
     next.disabled = current === pages.length - 1;
     counter.textContent = `${current + 1} / ${pages.length}`;
     counter.setAttribute('aria-label', `${pages.length}쪽 중 ${current + 1}쪽, ${active.dataset.pageLabel}`);
-    renderView();
     // Load the current and adjacent artwork before the next navigation gesture.
     for (const nearby of pages.slice(Math.max(0, current - 1), current + 2)) {
       nearby.querySelector<HTMLImageElement>('.slide-artwork')!.loading = 'eager';
@@ -137,9 +127,37 @@ if (reader) {
 
   previous.addEventListener('click', () => showPage(current - 1, true));
   next.addEventListener('click', () => showPage(current + 1, true));
-  textToggle.addEventListener('click', () => {
-    textView = !textView;
-    renderView();
+  sourceButton.addEventListener('click', () => {
+    sourcePanels.forEach(panel => { panel.hidden = Number(panel.dataset.sourcePage) !== current + 1; });
+    sourceDialog.showModal();
+    sourceBody.scrollTo({ top: 0, behavior: 'instant' });
+    revealControls();
+  });
+  sourceClose.addEventListener('click', () => sourceDialog.close());
+  sourceDialog.addEventListener('cancel', event => {
+    event.preventDefault();
+    sourceDialog.close();
+  });
+  sourceDialog.addEventListener('keydown', event => {
+    if (event.key !== 'Tab') return;
+    const focusable = [...sourceDialog.querySelectorAll<HTMLElement>('button, a[href]')].filter(element => element.getClientRects().length > 0);
+    const first = focusable[0];
+    const last = focusable.at(-1);
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first?.focus();
+    }
+  });
+  sourceDialog.addEventListener('click', event => {
+    if (event.target !== sourceDialog) return;
+    const bounds = sourceDialog.getBoundingClientRect();
+    if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) sourceDialog.close();
+  });
+  sourceDialog.addEventListener('close', () => {
+    sourceButton.focus({ preventScroll: true });
     revealControls();
   });
   fullscreen.addEventListener('click', () => { void toggleFullscreen(); });
@@ -149,6 +167,7 @@ if (reader) {
   controls.addEventListener('focusin', revealControls);
   controls.addEventListener('focusout', revealControls);
   reader.addEventListener('click', event => {
+    if (sourceDialog.open) return;
     const link = (event.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
     if (!link || (event as MouseEvent).metaKey || (event as MouseEvent).ctrlKey || (event as MouseEvent).shiftKey || (event as MouseEvent).altKey) return;
     const index = pageFromHash(link.hash);
@@ -157,6 +176,8 @@ if (reader) {
     showPage(index, true);
   });
   document.addEventListener('keydown', event => {
+    // The native modal owns focus, Escape and scrolling while it is open.
+    if (sourceDialog.open) return;
     if (event.altKey || event.ctrlKey || event.metaKey || event.defaultPrevented || !(event.target instanceof Element)) return;
     const target = event.target;
     if (target.closest('input, textarea, select, [contenteditable]')) return;
@@ -170,14 +191,12 @@ if (reader) {
       void toggleFullscreen();
       return;
     }
-    // In text view, arrow keys inside a table keep their scrolling behavior.
-    if (textView && target.closest('.table-scroll')) return;
     let destination: number | undefined;
     if (event.key === 'ArrowLeft' || event.key === 'PageUp') destination = current - 1;
     if (event.key === 'ArrowRight' || event.key === 'PageDown') destination = current + 1;
     if (event.key === 'Home') destination = 0;
     if (event.key === 'End') destination = pages.length - 1;
-    if (presenting && !textView) {
+    if (presenting) {
       if (event.key === 'ArrowUp') destination = current - 1;
       if (event.key === 'ArrowDown') destination = current + 1;
       if (event.key === ' ' && !target.closest('button, a, summary')) destination = current + (event.shiftKey ? -1 : 1);
