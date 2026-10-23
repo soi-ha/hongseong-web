@@ -11,7 +11,7 @@ const text = html => html.replace(/<[^>]*>/g, '').replace(/&(amp|lt|gt|quot|apos
 const pages = new Map([...html.matchAll(/<(?:article|section)\b[^>]*data-source-page="(\d+)"[^>]*>([\s\S]*?)<\/(?:article|section)>/g)].map(m => [Number(m[1]), m[2]]));
 assert.equal(pages.size, 29, '29 source sections');
 assert.equal((html.match(/<table>/g) ?? []).length, 16, '16 source tables');
-assert.equal((html.match(/<summary>출처·발표자 노트<\/summary>/g) ?? []).length, 29, '29 complete note disclosures');
+assert.equal((html.match(/<summary>출처<\/summary>/g) ?? []).length, 29, '29 source disclosures with the requested short label');
 assert.equal((html.match(/<blockquote>/g) ?? []).length, 22, '22 source condition/case blocks');
 assert.equal((html.match(/<img /g) ?? []).length, 8, '8 source photos');
 assert.ok(!html.includes('<del>'), 'Numeric ranges must not become strikethrough');
@@ -24,7 +24,8 @@ for (let i = 0; i < sections.length; i++) {
   const expected = (await renderer.render(markdown)).code;
   const actual = text(pages.get(number));
   for (const block of expected.matchAll(/<(p|h3|h4|th|td|summary)\b[^>]*>([\s\S]*?)<\/\1>/g)) {
-    const value = text(block[2]);
+    // The user requested this UI label change; all note paragraphs remain exact.
+    const value = block[1] === 'summary' && text(block[2]) === '출처·발표자노트' ? '출처' : text(block[2]);
     if (!value) continue; // An image-only paragraph is verified separately below.
     assert.ok(actual.includes(value), `page ${number}: omitted or changed: ${value.slice(0, 100)}`);
     blocks++;

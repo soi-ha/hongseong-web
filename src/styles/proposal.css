@@ -33,30 +33,30 @@ html { scroll-padding-top: 6rem; }
 .proposal-group:nth-child(even) { background: var(--color-surface-subtle); }
 .group-heading { position: relative; padding: 0 6rem var(--space-8) 0; border-bottom: 2px solid var(--color-accent); margin-bottom: var(--space-12); }
 .group-heading > p { color: var(--color-accent); font-size: 1.5rem; margin: 0 0 var(--space-3); line-height: 1.2; }
-.group-heading h2 { font-size: var(--font-size-title); margin: 0; color: var(--color-heading); }
+.group-heading h2 { font-size: var(--font-size-title); margin: 0; color: var(--color-title, var(--color-heading)); }
 .group-number { position: absolute; top: 0; right: 0; font-size: 5rem; color: var(--color-accent); line-height: 1; }
 .proposal-article { scroll-margin-top: var(--space-4); }
 .proposal-article + .proposal-article { margin-top: var(--space-16); padding-top: var(--space-12); border-top: 1px solid var(--color-border); }
 .article-label { display: flex; gap: var(--space-3); align-items: baseline; font-size: var(--font-size-small); color: var(--color-muted); margin: 0 0 var(--space-3); }
 .article-label .display-title { font-size: 1.25rem; color: var(--color-accent); }
 .source-page { margin-left: auto; white-space: nowrap; font-variant-numeric: tabular-nums; }
-.article-heading h3 { font-size: var(--font-size-article-title); font-weight: var(--font-weight-heading); line-height: 1.45; color: var(--color-heading); margin: 0 0 var(--space-6); max-width: 32em; text-wrap: pretty; }
+.article-heading h3 { font-size: var(--font-size-article-title); font-weight: var(--font-weight-heading); line-height: 1.45; color: var(--color-title, var(--color-heading)); margin: 0 0 var(--space-6); max-width: 32em; text-wrap: pretty; }
 .article-main { min-width: 0; }
 .has-photo .article-main { display: grid; grid-template-columns: 1fr 1.08fr; gap: var(--space-12); align-items: start; }
 .prose { min-width: 0; }
 .prose > :first-child { margin-top: 0; }
 .prose > :last-child { margin-bottom: 0; }
 .prose p { margin-block: var(--space-4); }
-.prose h4 { font-size: var(--font-size-subheading); font-weight: var(--font-weight-heading); line-height: 1.5; color: var(--color-heading); margin: var(--space-6) 0 var(--space-2); }
-.prose blockquote { margin: var(--space-6) 0 0; padding: var(--space-4) var(--space-6); background: var(--color-surface); border-left: 3px solid var(--color-accent); font-size: var(--font-size-small); }
+.prose h4 { font-size: var(--font-size-subheading); font-weight: var(--font-weight-heading); line-height: 1.5; color: var(--color-title, var(--color-heading)); margin: var(--space-6) 0 var(--space-2); }
+.prose blockquote { margin: var(--space-6) 0 0; padding: var(--space-4) var(--space-6); background: var(--color-surface); border-left: 3px solid var(--color-accent); color: var(--color-condition, var(--color-text)); font-size: var(--font-size-small); }
 .prose blockquote p { margin: 0; }
 .hero-description.prose blockquote { padding: 0; border: 0; background: none; }
 .prose a, .source-notes a { text-underline-offset: 3px; overflow-wrap: anywhere; }
 .prose .table-scroll { margin-block: var(--space-6); overflow-x: auto; border-top: 2px solid var(--color-accent); }
 .prose table { border-collapse: collapse; width: 100%; min-width: 680px; font-size: var(--font-size-table); line-height: 1.75; }
-.prose th, .prose td { padding: var(--space-4) var(--space-6); text-align: left; border-bottom: 1px solid var(--color-border); vertical-align: top; }
+.prose th, .prose td { padding: var(--space-4) var(--space-6); text-align: left; border-bottom: 1px solid var(--color-table-rule, var(--color-border)); vertical-align: top; }
 .prose th { background: var(--color-surface); color: var(--color-heading); font-weight: var(--font-weight-heading); }
-.prose td:first-child { color: var(--color-heading); }
+.prose td:first-child { color: var(--color-table-text, var(--color-heading)); }
 .prose tbody tr:hover { background: var(--color-surface-subtle); }
 .prose th:first-child, .prose td:first-child { min-width: 8rem; }
 #page-13 table, #page-14 table { min-width: 840px; }

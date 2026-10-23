@@ -25,7 +25,7 @@ const cover = sections[0]!;
     <div class="container toc-inner"><span class="toc-label">제안서 목차</span><ol>{groups.map((group, index) => <li><a href={`#${group.id}`}><span class="toc-number">{String(index + 1).padStart(2, '0')}</span>{group.label}</a></li>)}</ol></div>
   </nav>
   <div class="proposal-body">
-    {groups.map((group, index) => <section id={group.id} class="proposal-group" aria-labelledby={`${group.id}-title`}>
+    {groups.map((group, index) => <section id={group.id} class="proposal-group" data-theme={group.from >= 16 ? 'dark' : undefined} aria-labelledby={`${group.id}-title`}>
       <div class="container">
         <header class="group-heading"><p class="display-title" lang="en">{group.english}</p><h2 id={`${group.id}-title`}>{group.title}</h2><span class="group-number display-title" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span></header>
         {sections.filter(s => s.number >= group.from && s.number <= group.to).map(section => section.number === 2 ?
@@ -33,7 +33,7 @@ const cover = sections[0]!;
       </div>
     </section>)}
   </div>
-  <footer class="proposal-footer"><div class="container footer-inner"><div><p class="display-title" lang="en">HONGSEONG STAY TOURISM PROPOSAL</p><p>오토매닉스(AMX) · 제안 v02 · 내부 검토본</p><p class="footer-note">프로그램·장소·일정·협력 조건은 협의 후 확정</p></div><a href="#top">맨 위로 ↑</a></div></footer>
+  <footer class="proposal-footer" data-theme="dark"><div class="container footer-inner"><div><p class="display-title" lang="en">HONGSEONG STAY TOURISM PROPOSAL</p><p>오토매닉스(AMX) · 제안 v02 · 내부 검토본</p><p class="footer-note">프로그램·장소·일정·협력 조건은 협의 후 확정</p></div><a href="#top">맨 위로 ↑</a></div></footer>
 </BaseLayout>
 <script>
   // Enhancement only: anchors, notes and all content also work without JavaScript.

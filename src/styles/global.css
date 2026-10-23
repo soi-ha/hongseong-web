@@ -66,6 +66,27 @@
 
 * { box-sizing: border-box; }
 
+/* PPT guide v15 §28. Opt in only for the sections the user designated. */
+[data-theme='dark'] {
+  color-scheme: dark;
+  --color-background: #102832;
+  --color-accent: #49b5e5;
+  --color-accent-dark: #49b5e5;
+  --color-surface: #1c3c4b;
+  --color-surface-subtle: #102832;
+  --color-text: #e0e6e9;
+  --color-heading: #f1f4f5;
+  --color-title: #49b5e5;
+  --color-table-text: #e0e6e9;
+  --color-table-rule: #49b5e5;
+  --color-muted: #aab8bf;
+  --color-condition: #aab8bf;
+  --color-border: #3b5663;
+  --color-focus: #49b5e5;
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
 body {
   margin: 0;
   background: var(--color-background);

@@ -42,8 +42,10 @@ export async function getProposal() {
     html = html.replace(/ id="([^"]+)"/g, ` id="page-${match[1]}-$1"`);
     html = html.replace(/<table>/g, `<div class="table-scroll" role="region" aria-label="${escape(category ?? originalHeading)} 표 (가로 스크롤 가능)" tabindex="0"><table>`).replace(/<\/table>/g, '</table></div>');
     html = html.replace(/<th>/g, '<th scope="col">');
-    const notes = html.match(/<details>[\s\S]*?<\/details>/)?.[0] ?? '';
-    html = html.replace(notes, '');
+    const originalNotes = html.match(/<details>[\s\S]*?<\/details>/)?.[0] ?? '';
+    html = html.replace(originalNotes, '');
+    // Keep the source snapshot intact; shorten only the visible disclosure label.
+    const notes = originalNotes.replace('<summary>출처·발표자 노트</summary>', '<summary>출처</summary>');
     if (photo) html = html.replace(`<p>${escape(photo.caption)}</p>`, '');
     if ([6, 7, 21, 27].includes(number)) {
       html = html.replace(/(?:<h4[^>]*>[\s\S]*?<\/h4>\s*<p>[\s\S]*?<\/p>\s*)+/g, (steps) =>
