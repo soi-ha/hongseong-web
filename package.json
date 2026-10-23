@@ -14,10 +14,12 @@
     "build": "astro build",
     "preview": "astro preview --host 127.0.0.1",
     "preview:workers": "wrangler dev --local --ip 127.0.0.1 --port 8787",
-    "deploy:check": "npm run build && wrangler deploy --dry-run",
-    "deploy": "npm run build && wrangler deploy"
+    "deploy:check": "npm run build && npm run check:content && wrangler deploy --dry-run",
+    "deploy": "npm run check && npm run build && npm run check:content && wrangler deploy",
+    "check:content": "node scripts/verify-proposal.mjs"
   },
   "dependencies": {
+    "@astrojs/markdown-satteri": "0.4.5",
     "astro": "7.4.2"
   },
   "devDependencies": {

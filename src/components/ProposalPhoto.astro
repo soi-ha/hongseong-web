@@ -1,0 +1,13 @@
+---
+import type { ProposalSection } from '../lib/proposal';
+interface Props { photo: NonNullable<ProposalSection['photo']>; eager?: boolean }
+const { photo, eager = false } = Astro.props;
+---
+<figure class="proposal-photo">
+  <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height}
+    loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} decoding="async" />
+  <figcaption>
+    <span>{photo.caption}</span>
+    <a href={photo.page_url} target="_blank" rel="noopener noreferrer">사진 출처 ↗<span class="sr-only"> · {photo.provider} (새 창)</span></a>
+  </figcaption>
+</figure>

@@ -26,11 +26,13 @@
 :root {
   color-scheme: light;
   --color-accent: #0380b7;
+  --color-accent-dark: #026591;
   --color-background: #ffffff;
   --color-surface: #ebf5f9;
+  --color-surface-subtle: #f7fafb;
   --color-text: #4a4a4a;
   --color-heading: #353535;
-  --color-muted: #767676;
+  --color-muted: #6b6b6b;
   --color-border: #ccdce3;
   --color-focus: var(--color-accent);
   --font-body: 'A2Z', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
@@ -40,6 +42,9 @@
   --font-size-navigation: 1rem;
   --font-size-subheading: 1.5rem;
   --font-size-title: clamp(2.25rem, 4vw, 3.25rem);
+  --font-size-hero: clamp(4rem, 7.8vw, 6.4rem);
+  --font-size-article-title: clamp(1.5rem, 2.6vw, 2rem);
+  --font-size-table: 1rem;
   --font-weight-body: 400;
   --font-weight-heading: 600;
   --font-weight-display: 700;
@@ -53,6 +58,7 @@
   --space-8: 2rem;
   --space-12: 3rem;
   --space-16: 4rem;
+  --section-space: clamp(3.5rem, 7vw, 6rem);
   --content-max-width: 74rem;
   --page-gutter: clamp(1rem, 4vw, 2rem);
   --radius-small: 0.5rem;

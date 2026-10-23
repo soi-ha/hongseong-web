@@ -1,10 +1,63 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import ProposalSection from '../components/ProposalSection.astro';
+import ProposalPhoto from '../components/ProposalPhoto.astro';
+import { getProposal, groups } from '../lib/proposal';
+import '../styles/proposal.css';
+const sections = await getProposal();
+const cover = sections[0]!;
 ---
-
-<BaseLayout title="제안서" description="홍성 제안서 자료를 준비하고 있습니다." activePage="proposal">
-  <section class="preparation" aria-labelledby="preparation-title">
-    <h2 id="preparation-title">준비 중</h2>
-    <p>홍성 제안서 내용을 정리하고 있습니다.</p>
+<BaseLayout title="홍성 관광객 유치 제안 A안·B안" description="미식·해안·체험을 잇는 홍성 체류 프로그램. 궁리 1박 코스와 월별 브랜드 모임을 검토하는 v02 내부 제안서." activePage="proposal" customHeading>
+  <section id="top" class="proposal-hero container" data-source-page="1" aria-labelledby="proposal-title">
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="document-meta"><span class="review-mark">내부 검토본</span><span>제안 v02 · OCT 2026</span></p>
+        <p class="hero-eyebrow">홍성 관광객 유치 제안 A안·B안</p>
+        <h1 id="proposal-title" class="display-title" lang="en"><span>BEAUTIFUL</span>{' '}<span>STAY</span>{' '}<span>HONGSEONG</span></h1>
+        <div class="hero-description prose" set:html={cover.html} />
+        <div class="hero-actions"><a class="primary-link" href="#plan-a">A안 살펴보기 <span aria-hidden="true">↗</span></a><a class="text-link" href="#plan-b">B안 살펴보기 <span aria-hidden="true">↗</span></a></div>
+      </div>
+      {cover.photo && <ProposalPhoto photo={cover.photo} eager />}
+    </div>
+    <div class="source-notes cover-notes" set:html={cover.notes} />
   </section>
+  <nav class="proposal-navigation" aria-label="제안서 내부 목차">
+    <div class="container toc-inner"><span class="toc-label">제안서 목차</span><ol>{groups.map((group, index) => <li><a href={`#${group.id}`}><span class="toc-number">{String(index + 1).padStart(2, '0')}</span>{group.label}</a></li>)}</ol></div>
+  </nav>
+  <div class="proposal-body">
+    {groups.map((group, index) => <section id={group.id} class="proposal-group" aria-labelledby={`${group.id}-title`}>
+      <div class="container">
+        <header class="group-heading"><p class="display-title" lang="en">{group.english}</p><h2 id={`${group.id}-title`}>{group.title}</h2><span class="group-number display-title" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span></header>
+        {sections.filter(s => s.number >= group.from && s.number <= group.to).map(section => section.number === 2 ?
+          <details class="original-contents"><summary>원문 목차 · v02 / 29쪽 <span aria-hidden="true">＋</span></summary><ProposalSection section={section} /></details> : <ProposalSection section={section} />)}
+      </div>
+    </section>)}
+  </div>
+  <footer class="proposal-footer"><div class="container footer-inner"><div><p class="display-title" lang="en">HONGSEONG STAY TOURISM PROPOSAL</p><p>오토매닉스(AMX) · 제안 v02 · 내부 검토본</p><p class="footer-note">프로그램·장소·일정·협력 조건은 협의 후 확정</p></div><a href="#top">맨 위로 ↑</a></div></footer>
 </BaseLayout>
+<script>
+  // Enhancement only: anchors, notes and all content also work without JavaScript.
+  const links = [...document.querySelectorAll<HTMLAnchorElement>('.proposal-navigation a')];
+  const targets = links.map(link => document.querySelector<HTMLElement>(link.hash)).filter((el): el is HTMLElement => el !== null);
+  let pending = false;
+  function updateCurrent() {
+    const line = (document.querySelector('.proposal-navigation')?.getBoundingClientRect().height ?? 70) + 100;
+    let active = '';
+    for (const target of targets) if (target.getBoundingClientRect().top <= line) active = target.id;
+    for (const link of links) {
+      if (link.hash === `#${active}`) {
+        if (!link.hasAttribute('aria-current')) {
+          link.setAttribute('aria-current', 'location');
+          const list = link.closest('ol');
+          if (list && list.scrollWidth > list.clientWidth) {
+            list.scrollTo({ left: list.scrollLeft + link.getBoundingClientRect().left - list.getBoundingClientRect().left - (list.clientWidth - link.offsetWidth) / 2 });
+          }
+        }
+      } else link.removeAttribute('aria-current');
+    }
+    pending = false;
+  }
+  window.addEventListener('scroll', () => { if (!pending) { pending = true; requestAnimationFrame(updateCurrent); } }, { passive: true });
+  window.addEventListener('resize', updateCurrent);
+  updateCurrent();
+</script>

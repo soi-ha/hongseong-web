@@ -6,9 +6,10 @@ interface Props {
   title: string;
   description: string;
   activePage: 'proposal' | 'research';
+  customHeading?: boolean;
 }
 
-const { title, description, activePage } = Astro.props;
+const { title, description, activePage, customHeading = false } = Astro.props;
 ---
 
 <!doctype html>
@@ -18,14 +19,14 @@ const { title, description, activePage } = Astro.props;
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="robots" content="noindex, nofollow, noarchive" />
     <title>{title} | 홍성 제안·자료조사</title>
   </head>
   <body>
     <a class="skip-link" href="#main-content">본문으로 이동</a>
     <SiteHeader activePage={activePage} />
-    <main id="main-content" class="container main-content" tabindex="-1">
-      <h1>{title}</h1>
-      <!-- A future in-page table of contents belongs here, separate from SiteHeader. -->
+    <main id="main-content" class:list={['main-content', { container: !customHeading, 'proposal-main': customHeading }]} tabindex="-1">
+      {!customHeading && <h1>{title}</h1>}
       <slot name="page-navigation" />
       <slot />
     </main>
