@@ -1,0 +1,29 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ideas, getIdeaPhoto } from '../../content/ideas';
+import '../../styles/ideas.css';
+---
+<BaseLayout title="아이디어" description="홍성에서 해볼 수 있는 체류·지역 소비·정기 모임 아이디어를 살펴보는 공간." activePage="ideas">
+  <div class="ideas-intro">
+    <p>홍성에서 해볼 수 있는 일들.<br />사진과 함께 살펴보고, 아이디어를 구체화합니다.</p>
+    <span class="idea-badge">예시 {ideas.length}개</span>
+  </div>
+  <ul class="idea-grid" aria-label="아이디어 목록">
+    {ideas.map(idea => {
+      const photo = getIdeaPhoto(idea.photos[0]);
+      return <li>
+        <a class="idea-card" href={`/ideas/${idea.slug}/`} aria-labelledby={`idea-${idea.slug}`}>
+          <div class="idea-card-image"><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} decoding="async" /></div>
+          <div class="idea-card-content">
+            <div class="idea-card-meta"><span>{idea.category}</span><span>{idea.number}</span></div>
+            <h2 id={`idea-${idea.slug}`}>{idea.title}</h2>
+            <p class="idea-card-summary">{idea.summary}</p>
+            <p class="idea-card-photo-note">{idea.photoContext}</p>
+            <span class="idea-card-action">자세히 보기 <span aria-hidden="true">→</span></span>
+          </div>
+        </a>
+      </li>;
+    })}
+  </ul>
+  <p class="ideas-example-note">기존 A안·B안 내용을 바탕으로 구성한 예시입니다. 프로그램·장소·협력 조건은 검토 중입니다.</p>
+</BaseLayout>

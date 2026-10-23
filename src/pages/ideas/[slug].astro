@@ -1,0 +1,69 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import IdeaPhoto from '../../components/IdeaPhoto.astro';
+import { ideas, getIdeaPhoto } from '../../content/ideas';
+import '../../styles/ideas.css';
+
+export const getStaticPaths = (() => ideas.map(idea => ({ params: { slug: idea.slug }, props: { idea } }))) satisfies GetStaticPaths;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { idea } = Astro.props;
+const related = ideas.filter(other => other.slug !== idea.slug);
+---
+<BaseLayout title={idea.title} description={idea.summary} activePage="ideas" customHeading mainClass="ideas-main">
+  <article class="container idea-detail">
+    <a class="idea-back" href="/ideas/"><span aria-hidden="true">←</span> 아이디어 목록</a>
+    <header class="idea-hero">
+      <div class="idea-hero-copy">
+        <div class="idea-eyebrow"><span class="idea-badge">예시 {idea.number}</span><span>{idea.category}</span></div>
+        <h1>{idea.title}</h1>
+        <p class="idea-lead">{idea.summary}</p>
+        <p class="idea-draft-note">기존 제안 내용을 바탕으로 구성한 검토용 예시</p>
+      </div>
+      <IdeaPhoto photoKey={idea.photos[0]} eager />
+    </header>
+    <div class="idea-detail-grid">
+      <div class="idea-story">
+        <section aria-labelledby="idea-overview">
+          <h2 id="idea-overview">어떤 아이디어인가요?</h2>
+          <p>{idea.overview}</p>
+        </section>
+        <section aria-labelledby="idea-flow">
+          <h2 id="idea-flow">이렇게 이어집니다</h2>
+          <ol class="idea-steps">{idea.steps.map((step, index) => <li>
+            <span class="idea-step-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+            <div><h3>{step.title}</h3><p>{step.text}</p></div>
+          </li>)}</ol>
+        </section>
+        <IdeaPhoto photoKey={idea.photos[1]} />
+        <section class="idea-considerations" aria-labelledby="idea-considerations">
+          <h2 id="idea-considerations">함께 검토할 내용</h2>
+          <ul>{idea.considerations.map(item => <li>{item}</li>)}</ul>
+        </section>
+      </div>
+      <aside class="idea-sidebar" aria-label="아이디어 정보">
+        <section class="idea-facts" aria-labelledby="idea-facts">
+          <h2 id="idea-facts">아이디어 개요</h2>
+          <dl>{idea.facts.map(fact => <div><dt>{fact.label}</dt><dd>{fact.value}</dd></div>)}</dl>
+          <p>제안 단계 · 일정 및 실행 조건 미확정</p>
+        </section>
+        <section class="idea-source" aria-labelledby="idea-source">
+          <h2 id="idea-source">관련 제안서</h2>
+          <ul>{idea.sourcePages.map(page => <li><a href={`/#page-${String(page.number).padStart(2, '0')}`}><span>{page.label}</span><span>{page.number}쪽 <span aria-hidden="true">↗</span></span></a></li>)}</ul>
+        </section>
+        <details class="idea-photo-credits">
+          <summary>사진 출처·사용 정보</summary>
+          <ul>{idea.photos.map(key => { const photo = getIdeaPhoto(key); return <li>
+            <a href={photo.page_url} target="_blank" rel="noopener noreferrer">{photo.caption} ↗</a>
+            <p>{photo.provider}</p><p>{photo.license}</p>
+          </li>; })}</ul>
+        </details>
+      </aside>
+    </div>
+    <nav class="idea-related" aria-label="다른 아이디어">
+      <h2>다른 아이디어</h2>
+      <div>{related.map(other => <a href={`/ideas/${other.slug}/`}><span><span class="idea-related-category">{other.category}</span>{other.title}</span><span aria-hidden="true">→</span></a>)}</div>
+      <a class="idea-back" href="/ideas/">아이디어 목록으로</a>
+    </nav>
+  </article>
+</BaseLayout>

@@ -5,11 +5,12 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description: string;
-  activePage: 'proposal' | 'research';
+  activePage: 'proposal' | 'ideas' | 'research';
   customHeading?: boolean;
+  mainClass?: string;
 }
 
-const { title, description, activePage, customHeading = false } = Astro.props;
+const { title, description, activePage, customHeading = false, mainClass } = Astro.props;
 ---
 
 <!doctype html>
@@ -25,7 +26,7 @@ const { title, description, activePage, customHeading = false } = Astro.props;
   <body>
     <a class="skip-link" href="#main-content">본문으로 이동</a>
     <SiteHeader activePage={activePage} />
-    <main id="main-content" class:list={['main-content', { container: !customHeading, 'proposal-main': customHeading }]} tabindex="-1">
+    <main id="main-content" class:list={['main-content', mainClass, { container: !customHeading, 'proposal-main': customHeading && activePage === 'proposal' }]} tabindex="-1">
       {!customHeading && <h1>{title}</h1>}
       <slot name="page-navigation" />
       <slot />

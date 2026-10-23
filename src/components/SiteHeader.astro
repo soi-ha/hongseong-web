@@ -1,12 +1,13 @@
 ---
 interface Props {
-  activePage: 'proposal' | 'research';
+  activePage: 'proposal' | 'ideas' | 'research';
 }
 
 const { activePage } = Astro.props;
 // Site-level navigation only. Proposal section links belong inside that page.
 const pages = [
   { id: 'proposal', href: '/', label: '제안서' },
+  { id: 'ideas', href: '/ideas/', label: '아이디어' },
   { id: 'research', href: '/research/', label: '자료조사' },
 ] as const;
 ---

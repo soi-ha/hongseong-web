@@ -1,0 +1,14 @@
+---
+import { getIdeaPhoto, type IdeaPhotoKey } from '../content/ideas';
+interface Props { photoKey: IdeaPhotoKey; eager?: boolean }
+const { photoKey, eager = false } = Astro.props;
+const photo = getIdeaPhoto(photoKey);
+---
+<figure class="idea-photo">
+  <img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height}
+    loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} decoding="async" />
+  <figcaption>
+    <span>{photo.caption}</span>
+    <a href={photo.page_url} target="_blank" rel="noopener noreferrer" aria-label={`사진 출처: ${photo.provider} (새 탭)`}>출처 ↗</a>
+  </figcaption>
+</figure>
