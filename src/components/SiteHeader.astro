@@ -16,7 +16,10 @@ const pages = [
 
 <header class="site-header">
   <div class="container header-inner">
-    <a class="site-name" href="/">{SITE_NAME}</a>
+    <a class="site-name" href="/">
+      <img class="site-icon" src="/favicon.svg" alt="" width="28" height="28" aria-hidden="true" />
+      <span>{SITE_NAME}</span>
+    </a>
     <nav aria-label="사이트 메뉴">
       <ul class="site-menu">
         {pages.map((page) => (

@@ -144,11 +144,21 @@ a { color: inherit; }
 }
 
 .site-name {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
   padding-block: var(--space-3);
   color: var(--color-heading);
   font-size: var(--font-size-navigation);
   font-weight: var(--font-weight-heading);
   text-decoration: none;
+}
+
+.site-icon {
+  display: block;
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
 }
 
 .site-menu {

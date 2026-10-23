@@ -6,7 +6,7 @@ Astro + TypeScript 기반 내부 검토용 정적 사이트. 제안 PPT v03의 3
 
 사이트 이름은 2026-10-24 사용자 선택에 따라 **홍성 아이디어북**으로 통일했다. 이름은 `src/config/site.ts`에서 관리하며 헤더와 브라우저 탭에 사용한다. 탭은 `제안서 | 홍성 아이디어북`, `아이디어 | 홍성 아이디어북`, `자료조사 | 홍성 아이디어북`, 상세는 `아이디어 제목 | 홍성 아이디어북` 형식이다. 제안서 본문 제목은 그대로 보존한다.
 
-파비콘은 기존 포인트색 `#0380B7`과 흰색 펼친 책 모양의 구현안이다. `public/favicon.svg`가 벡터 원본이며 `favicon.ico`에16·32·48px 변형을 함께 담았다. 외부 서체나 이미지 없이 구성했으며 SVG 수정 시 ICO도 함께 갱신한다. 새 파비콘을 홍성의 공식 브랜드 로고로 지정한 것은 아니다.
+파비콘은 투명 배경에 기존 포인트색 `#0380B7`의 펼친 책 모양이다. `public/favicon.svg`를 헤더 제목 왼쪽에도 함께 사용하며 `favicon.ico`에16·32·48px 변형을 담았다. 외부 서체나 이미지 없이 구성했으며 SVG 수정 시 ICO도 함께 갱신한다. 새 아이콘을 홍성의 공식 브랜드 로고로 지정한 것은 아니다.
 
 배포 주소: **https://honeseong-web.sy-choe.workers.dev/**
 
@@ -76,7 +76,7 @@ npm run dev
 | `src/lib/proposal.ts` | 29절을 빌드 시 렌더링; 숫자 범위 보존·표·목차·노트 연결 |
 | `src/components/ProposalSources.astro`, `src/lib/proposal-sources.ts` | 페이지별 출처 링크·사진 정보·주석 모달 |
 | `src/components/SiteHeader.astro` | 사이트 간 메뉴; 제안서 내부 목차와 별개 |
-| `src/config/site.ts`, `public/favicon.svg`, `public/favicon.ico` | 공통 사이트 이름과 탭 아이콘 |
+| `src/config/site.ts`, `public/favicon.svg`, `public/favicon.ico` | 공통 사이트 이름과 탭·헤더 아이콘 |
 | `src/layouts/BaseLayout.astro` | 한국어 문서·공통 헤더·검색 제외 메타 정보 |
 | `src/styles/global.css`, `proposal.css` | 공통 디자인 변수와 제안서 반응형 배치 |
 | `public/fonts/`, `public/images/proposal/` | 자체 제공 웹폰트·최적화 사진 8장 |
@@ -224,6 +224,12 @@ npm run dev
 - 파란색 바탕·흰색 책 모양 SVG와16·32·48px ICO 생성.16px 및 확대 미리보기 확인, ICO3개 크기 디코딩·투명도 검증, 로컬 SVG/ICO HTTP200 및 제공 파일 일치 확인.
 - 타입 검사·정적6페이지 빌드·기존 제안서 내용 검사 통과.6페이지 제목·아이콘 연결 확인. 실제 Chrome에서 헤더·탭 제목 확인. 브라우저 검증 도구가 탭 아이콘을 자체 표식으로 대체하므로 도구 해제 후 실제 탭 아이콘 표시는 별도 확인 대상.
 - localhost만 갱신. 배포·push 없음.
+
+### 투명 책 아이콘·헤더 적용 — 2026-10-24, 로컬만 반영
+
+- 사용자 후속 선택에 따라 배경을 제거하고 책에 포인트색 `#0380B7` 적용. 같은 SVG를 헤더 제목 왼쪽에28px 크기·8px 간격으로 배치. ICO3개 크기도 갱신하고 파비콘 URL에 버전을 붙여 이전 아이콘 캐시 구분.
+- 타입 검사·정적6페이지 빌드·기존 제안서 내용 검사 통과. SVG/ICO의 투명 배경·책 색, localhost HTTP200·파일 일치 확인. Chrome1728px·320px에서 헤더 배치·아이콘 표시·가로 넘침 없음, 제목 클릭 시 제안서 이동 확인. 임시 화면 크기 해제 요청 후 브라우저 연결이 끊겨 복원 여부 미확인. 실제 휴대폰과 도구 해제 후 브라우저 탭 아이콘 표시는 미검증.
+- localhost 반영과 로컬 커밋만 수행. 배포·push 없음.
 
 ## 다음 작업
 
