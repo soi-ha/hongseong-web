@@ -1,6 +1,6 @@
 {
   "version": "v03",
-  "guide": "v15",
+  "guide": "v16",
   "width": 720,
   "height": 405,
   "pixelWidth": 3840,
@@ -9,13 +9,37 @@
   "sourcePptxSha256": "f8bf0632e1b36149eadfd952f19dc7ce4037be68e04b6ebbf42b7ee3c1cbc82f",
   "sourcePdf": "261023_홍성_관광객유치_제안_A안·B안_v03.pdf",
   "sourcePdfSha256": "b4f2da32468aae76ad304176f66b3c5d3e6d89285791ed7751ff323ab57977f2",
+  "sourceGuide": "261023_홍성_PPT디자인가이드_v16.md",
+  "sourceGuideSha256": "74485d5fc93482089a23addaf02214d6497af6a3d101cc8042e50d3e7bca99f6",
+  "webAdjustments": {
+    "method": "remove-native-text-operators-in-memory",
+    "pages": [
+      {
+        "slide": 1,
+        "removedTextBlocks": 23,
+        "excluded": [
+          "document-name",
+          "date",
+          "condition-note"
+        ]
+      },
+      {
+        "slide": 30,
+        "removedTextBlocks": 2,
+        "excluded": [
+          "document-name",
+          "date"
+        ]
+      }
+    ]
+  },
   "renderer": "PyMuPDF 1.26.5; Pillow 11.3.0; lossless WebP",
   "slides": [
     {
       "number": 1,
       "src": "/slides/proposal-v03/slide-01.webp",
-      "sha256": "0959fb2dd5064a26f47c10ce228e578dfdafb8452c13ac65893e82a63f1110c6",
-      "bytes": 952340
+      "sha256": "c1ee8120ca295a2137d964457f6565bf682bbdadb59494016d49662ba19e9249",
+      "bytes": 933522
     },
     {
       "number": 2,
@@ -188,8 +212,8 @@
     {
       "number": 30,
       "src": "/slides/proposal-v03/slide-30.webp",
-      "sha256": "0ec84782bfbd3cfb9635a61288e80a924506024b721416e94ee1f27c2456003c",
-      "bytes": 951420
+      "sha256": "635ee6a500e1bacd41651b1cc5f32b5e8e778e268109ac6e952c575121dc74ce",
+      "bytes": 940554
     }
   ]
 }

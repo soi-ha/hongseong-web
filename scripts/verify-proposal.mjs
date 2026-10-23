@@ -3,7 +3,7 @@ import { readFile, access } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { createSatteriMarkdownProcessor } from '@astrojs/markdown-satteri';
 
-// Slide images preserve the reviewed PPT; the modal must preserve the right
+// Slide images preserve the reviewed PPT with documented guide adjustments; the modal must preserve the right
 // source URLs and note statements for each page without rendering a second body.
 const source = await readFile(new URL('../src/content/proposal-v02.md', import.meta.url), 'utf8');
 const html = await readFile(new URL('../dist/index.html', import.meta.url), 'utf8');
@@ -57,6 +57,9 @@ assert.ok(!/file:\/\/|\/Users\/|구성안_PPT_제작자료/.test(html), 'No loca
 assert.ok(html.includes('noindex, nofollow, noarchive'), 'Internal review search exclusion');
 const deck = JSON.parse(await readFile(new URL('../src/content/proposal-slides.json', import.meta.url), 'utf8'));
 assert.equal(deck.sourcePdfSha256, 'b4f2da32468aae76ad304176f66b3c5d3e6d89285791ed7751ff323ab57977f2', 'Reviewed final v03 PDF');
+assert.equal(deck.guide, 'v16');
+assert.equal(deck.sourceGuideSha256, '74485d5fc93482089a23addaf02214d6497af6a3d101cc8042e50d3e7bca99f6', 'Reviewed v16 guide');
+assert.deepEqual(deck.webAdjustments.pages.map(page => page.slide), [1, 30], 'Guide exclusions apply only to cover and closing');
 assert.equal(deck.slides.length, 30);
 assert.deepEqual(deck.slides.map(s => s.number), Array.from({length: 30}, (_, i) => i + 1));
 for (const slide of deck.slides) {
@@ -68,4 +71,4 @@ for (const slide of deck.slides) {
 }
 assert.equal(deck.pixelWidth, 3840);
 assert.equal(deck.pixelHeight, 2160);
-console.log(`Verified: 30 PPT v03 lossless slides; 30 source panels, ${linkCount} original page-specific links and ${statements} note statements; closing photo sources; full source snapshot, anchors and artwork hashes unchanged.`);
+console.log(`Verified: 30 PPT v03 lossless slides with guide v16 cover/closing adjustments; 30 source panels, ${linkCount} original page-specific links and ${statements} note statements; closing photo sources; full source snapshot, anchors and artwork integrity.`);
