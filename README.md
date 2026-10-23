@@ -8,9 +8,9 @@ Astro + TypeScript 기반 내부 검토용 정적 사이트. 제안 PPT v03의 3
 
 파비콘은 투명 배경에 기존 포인트색 `#0380B7`의 펼친 책 모양이다. `public/favicon.svg`를 헤더 제목 왼쪽에도 함께 사용하며 `favicon.ico`에16·32·48px 변형을 담았다. 외부 서체나 이미지 없이 구성했으며 SVG 수정 시 ICO도 함께 갱신한다. 새 아이콘을 홍성의 공식 브랜드 로고로 지정한 것은 아니다.
 
-배포 주소: **https://honeseong-web.sy-choe.workers.dev/**
+배포 주소: **https://hongseong-web.sy-choe.workers.dev/**
 
-Cloudflare Workers Static Assets · Worker `honeseong-web` · 2026-10-23 첫 배포. 최신 Version ID: `1e38ecf7-7815-4a4a-abc6-58803309333c`. 기존 로그인 상태를 사용했으며 새 로그인·별도 도메인 연결은 수행하지 않았다.
+Cloudflare Workers Static Assets · Worker `hongseong-web` · 2026-10-23 첫 배포, 2026-10-24 이름 정정. 최신 Version ID: `1e38ecf7-7815-4a4a-abc6-58803309333c`. 기존 로그인 상태를 사용했으며 새 로그인·별도 도메인 연결은 수행하지 않았다.
 
 **현재 로컬 변경: PPT v03의 30쪽 재현·가이드 v16 표지/클로징·전체 화면 슬라이드쇼·하단 조작부·출처 모달·아이디어 예시3개. 아직 배포하지 않았다.** 사용자 지정에 따라 변경은 localhost에서 먼저 확인하며, 해당 변경의 배포를 명시적으로 요청받기 전에는 배포하지 않는다. 위 배포 주소는 이전의 연속 스크롤 버전이다.
 
@@ -34,7 +34,7 @@ TypeScript `latest`는 7.0.2였지만 `@astrojs/check@0.9.12`의 peer 지원 범
 
 ## 로컬 실행
 
-이 README가 있는 `honeseong-web` 폴더에서 실행한다. 폴더명 철자는 그대로 유지한다.
+이 README가 있는 `hongseong-web` 폴더에서 실행한다. 2026-10-24 사용자 요청으로 기존 `honeseong-web` 철자를 정정했다. IDE와 터미널도 새 폴더에서 연다.
 
 ```sh
 node --version
@@ -82,7 +82,7 @@ npm run dev
 | `public/fonts/`, `public/images/proposal/` | 자체 제공 웹폰트·최적화 사진 8장 |
 | `public/robots.txt`, `public/_headers` | 검색 제외 요청·정적 응답 헤더 |
 | `scripts/verify-proposal.mjs` | 원문·슬라이드 해시와 모달의 페이지별 링크·주석·앵커 대조 |
-| `wrangler.jsonc` | 정적 자산 `./dist`, Worker `honeseong-web` |
+| `wrangler.jsonc` | 정적 자산 `./dist`, Worker `hongseong-web` |
 
 아이디어 예시는 `src/content/ideas.ts`에서 편집한다. 사진은 기존 `proposal-photos.json`의 키를 연결해 출처·제공자·사용권 기록을 재사용하며 이미지를 중복 복사하지 않는다. 상세의 사진은 원본 비율을 유지하고, 카드 썸네일은3:2 프레임의 하단 기준으로 표시한다. 예시 내용은 기존 v02 제안서의 해당 절을 요약한 검토용 문구이며 원문과 자동 동기화되지 않는다. 원문 개정 시 관련 예시와 조건을 함께 대조한다. 등록·수정용 관리자 화면은 없으며 추가 예시 제작은 후속 요청 범위다.
 
@@ -230,6 +230,12 @@ npm run dev
 - 사용자 후속 선택에 따라 배경을 제거하고 책에 포인트색 `#0380B7` 적용. 같은 SVG를 헤더 제목 왼쪽에28px 크기·8px 간격으로 배치. ICO3개 크기도 갱신하고 파비콘 URL에 버전을 붙여 이전 아이콘 캐시 구분.
 - 타입 검사·정적6페이지 빌드·기존 제안서 내용 검사 통과. SVG/ICO의 투명 배경·책 색, localhost HTTP200·파일 일치 확인. Chrome1728px·320px에서 헤더 배치·아이콘 표시·가로 넘침 없음, 제목 클릭 시 제안서 이동 확인. 임시 화면 크기 해제 요청 후 브라우저 연결이 끊겨 복원 여부 미확인. 실제 휴대폰과 도구 해제 후 브라우저 탭 아이콘 표시는 미검증.
 - localhost 반영과 로컬 커밋만 수행. 배포·push 없음.
+
+### 폴더·Worker 이름 정정 — 2026-10-24
+
+- 사용자 요청으로 `honeseong-web` → `hongseong-web`. 로컬 폴더·npm 패키지·잠금 파일·Wrangler 설정·개발 지침 및 프로젝트 총괄/분석 문서의 경로를 정정. 이동 전후80개 파일 해시와 Git HEAD를 대조해 내용·이력 보존 확인. 기존 미추적 분석 파일은 커밋에 추가하지 않음.
+- Cloudflare [Worker 부분 수정 API](https://developers.cloudflare.com/api/resources/workers/subresources/beta/subresources/workers/methods/edit/)로 기존 Worker의 이름만 정정. 동일 Worker ID·배포 이력·Version ID 유지, 새 주소 HTTP200 및 변경 전후 공개 HTML 해시 일치 확인. 기존 오타 주소는404이며 자동 리디렉션 없음. 로컬의 최신 화면·아이디어·파비콘은 이번에도 업로드하지 않음.
+- 새 폴더에서 타입 검사·6페이지 빌드·내용 검사·Wrangler dry-run 통과. 개발 서버를 새 폴더에서 재시작하고6페이지와 파비콘 HTTP200 확인. 화면 구성은 변경하지 않아 브라우저 시각 검증은 반복하지 않음. IDE/Codex에서 기존 작업 폴더가 열려 있다면 새 경로로 다시 열어야 함. OneDrive 기록의 로컬 링크만 갱신했으며 동기화·다른 기기 열기는 미확인.
 
 ## 다음 작업
 

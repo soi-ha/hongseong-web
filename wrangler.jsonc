@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/wrangler/config-schema.json",
-  "name": "honeseong-web",
+  "name": "hongseong-web",
   "compatibility_date": "2026-10-23",
   "send_metrics": false,
   "assets": {
