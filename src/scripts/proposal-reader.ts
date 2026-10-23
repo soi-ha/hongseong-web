@@ -2,7 +2,6 @@ const reader = document.querySelector<HTMLElement>('#proposal-reader');
 if (reader) {
   const pages = [...reader.querySelectorAll<HTMLElement>('.proposal-page')];
   const stage = reader.querySelector<HTMLElement>('.reader-stage')!;
-  const surface = reader.querySelector<HTMLElement>('.reader-surface')!;
   const previous = reader.querySelector<HTMLButtonElement>('#previous-page')!;
   const next = reader.querySelector<HTMLButtonElement>('#next-page')!;
   const counter = reader.querySelector<HTMLElement>('#page-counter')!;
@@ -112,8 +111,6 @@ if (reader) {
     pages.forEach((page, i) => { page.hidden = i !== index; });
     current = index;
     const active = pages[current]!;
-    if (active.dataset.theme) surface.dataset.theme = active.dataset.theme;
-    else delete surface.dataset.theme;
     previous.disabled = current === 0;
     next.disabled = current === pages.length - 1;
     counter.textContent = `${current + 1} / ${pages.length}`;
