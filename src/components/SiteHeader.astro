@@ -1,28 +1,23 @@
 ---
-import { SITE_NAME } from '../config/site';
+import { SITE_NAME, SITE_PAGES, SITE_ICONS, type SitePage } from '../config/site';
 
 interface Props {
-  activePage: 'proposal' | 'ideas' | 'research';
+  activePage: SitePage;
 }
 
 const { activePage } = Astro.props;
 // Site-level navigation only. Proposal section links belong inside that page.
-const pages = [
-  { id: 'proposal', href: '/', label: '제안서' },
-  { id: 'ideas', href: '/ideas/', label: '아이디어' },
-  { id: 'research', href: '/research/', label: '자료조사' },
-] as const;
 ---
 
 <header class="site-header">
   <div class="container header-inner">
     <a class="site-name" href="/">
-      <img class="site-icon" src="/favicon.svg?v=4" alt="" width="28" height="28" aria-hidden="true" />
+      <img class="site-icon" src={SITE_ICONS.svg} alt="" width="28" height="28" aria-hidden="true" />
       <span>{SITE_NAME}</span>
     </a>
     <nav aria-label="사이트 메뉴">
       <ul class="site-menu">
-        {pages.map((page) => (
+        {SITE_PAGES.map((page) => (
           <li>
             <a href={page.href} aria-current={activePage === page.id ? 'page' : undefined}>
               {page.label}

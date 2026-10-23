@@ -9,11 +9,12 @@ import '../../styles/ideas.css';
     <span class="idea-badge">예시 {ideas.length}개</span>
   </div>
   <ul class="idea-grid" aria-label="아이디어 목록">
-    {ideas.map(idea => {
+    {ideas.map((idea, index) => {
       const photo = getIdeaPhoto(idea.photos[0]);
       return <li>
         <a class="idea-card" href={`/ideas/${idea.slug}/`} aria-labelledby={`idea-${idea.slug}`}>
-          <div class="idea-card-image"><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} decoding="async" /></div>
+          <div class="idea-card-image"><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height}
+            loading={index === 0 ? 'eager' : 'lazy'} fetchpriority={index === 0 ? 'high' : 'auto'} decoding="async" /></div>
           <div class="idea-card-content">
             <div class="idea-card-meta"><span>{idea.category}</span><span>{idea.number}</span></div>
             <h2 id={`idea-${idea.slug}`}>{idea.title}</h2>

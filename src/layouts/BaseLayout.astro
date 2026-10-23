@@ -1,13 +1,13 @@
 ---
 import SiteHeader from '../components/SiteHeader.astro';
-import { SITE_NAME } from '../config/site';
+import { SITE_NAME, SITE_ICONS, type SitePage } from '../config/site';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   browserTitle?: string;
   description: string;
-  activePage: 'proposal' | 'ideas' | 'research';
+  activePage: SitePage;
   customHeading?: boolean;
   mainClass?: string;
 }
@@ -24,8 +24,9 @@ const { title, browserTitle = title, description, activePage, customHeading = fa
     <meta name="generator" content={Astro.generator} />
     <meta name="robots" content="noindex, nofollow, noarchive" />
     <meta name="application-name" content={SITE_NAME} />
-    <link rel="icon" href="/favicon.ico?v=4" sizes="16x16 32x32 48x48" />
-    <link rel="icon" href="/favicon.svg?v=4" type="image/svg+xml" sizes="any" />
+    <link rel="preload" href="/fonts/A2Z-Regular.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="icon" href={SITE_ICONS.ico} sizes="16x16 32x32 48x48" />
+    <link rel="icon" href={SITE_ICONS.svg} type="image/svg+xml" sizes="any" />
     <title>{browserTitle} | {SITE_NAME}</title>
   </head>
   <body>
