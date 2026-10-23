@@ -35,6 +35,8 @@
   --color-muted: #6b6b6b;
   --color-border: #ccdce3;
   --color-focus: var(--color-accent);
+  --color-presentation-surround: #102832;
+  --color-control-shadow: #00000026;
   --font-body: 'A2Z', 'Pretendard', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif;
   --font-display: 'Bebas Neue', var(--font-body);
   --font-size-small: 0.875rem;

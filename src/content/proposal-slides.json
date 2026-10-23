@@ -1,0 +1,195 @@
+{
+  "version": "v03",
+  "guide": "v15",
+  "width": 720,
+  "height": 405,
+  "pixelWidth": 3840,
+  "pixelHeight": 2160,
+  "sourcePptx": "261023_홍성_관광객유치_제안_A안·B안_v03.pptx",
+  "sourcePptxSha256": "f8bf0632e1b36149eadfd952f19dc7ce4037be68e04b6ebbf42b7ee3c1cbc82f",
+  "sourcePdf": "261023_홍성_관광객유치_제안_A안·B안_v03.pdf",
+  "sourcePdfSha256": "b4f2da32468aae76ad304176f66b3c5d3e6d89285791ed7751ff323ab57977f2",
+  "renderer": "PyMuPDF 1.26.5; Pillow 11.3.0; lossless WebP",
+  "slides": [
+    {
+      "number": 1,
+      "src": "/slides/proposal-v03/slide-01.webp",
+      "sha256": "0959fb2dd5064a26f47c10ce228e578dfdafb8452c13ac65893e82a63f1110c6",
+      "bytes": 952340
+    },
+    {
+      "number": 2,
+      "src": "/slides/proposal-v03/slide-02.webp",
+      "sha256": "abfab5d7a6ab755321a6be8ecd7e93824f8afd6617dfc66680e63ff57faf94c9",
+      "bytes": 49364
+    },
+    {
+      "number": 3,
+      "src": "/slides/proposal-v03/slide-03.webp",
+      "sha256": "7360b5342d98ad16a5ae15dac4de0c472b170feca66b60558c5bc4557ce29ea7",
+      "bytes": 68706
+    },
+    {
+      "number": 4,
+      "src": "/slides/proposal-v03/slide-04.webp",
+      "sha256": "756c6b471d634c2f06d1ba1eb23e5814a350e221902b918c3b8c30acc247f264",
+      "bytes": 1417772
+    },
+    {
+      "number": 5,
+      "src": "/slides/proposal-v03/slide-05.webp",
+      "sha256": "6aeea8597e6d68057e7e1888dc21863411655fbc342c71e8652ccb86f2b314d7",
+      "bytes": 1476510
+    },
+    {
+      "number": 6,
+      "src": "/slides/proposal-v03/slide-06.webp",
+      "sha256": "83e35503605597ae836a411b11ab0f46b2d8ca9f22d100697df17ba72c32d7d5",
+      "bytes": 58774
+    },
+    {
+      "number": 7,
+      "src": "/slides/proposal-v03/slide-07.webp",
+      "sha256": "52d6cdd0c10f601ab463e7e52dc481d9d0ffe2516904f0c7612d4eff014b42e1",
+      "bytes": 82260
+    },
+    {
+      "number": 8,
+      "src": "/slides/proposal-v03/slide-08.webp",
+      "sha256": "dc17100ad4e6890efe4994ecff0ae793c10b3b0ea6bb65c2a20b3cd38399ca3a",
+      "bytes": 521108
+    },
+    {
+      "number": 9,
+      "src": "/slides/proposal-v03/slide-09.webp",
+      "sha256": "42403b4eb88c8daa3635e6289d51091c5b8f7e1564d9b3a6a2e7164946aac2c1",
+      "bytes": 86004
+    },
+    {
+      "number": 10,
+      "src": "/slides/proposal-v03/slide-10.webp",
+      "sha256": "fff86fb2ae32dd06419253d03fc8c1906ad0f89528f3429517dfa08dcac60a08",
+      "bytes": 1591658
+    },
+    {
+      "number": 11,
+      "src": "/slides/proposal-v03/slide-11.webp",
+      "sha256": "2416a9ae428f5162e9617d2fa567942e73b36605a08632be04d07fe4c728aafb",
+      "bytes": 53480
+    },
+    {
+      "number": 12,
+      "src": "/slides/proposal-v03/slide-12.webp",
+      "sha256": "e046d42d0c279843fec2b136f4cb05d4c16c05fc2338dd22e04653faab7f79b1",
+      "bytes": 56810
+    },
+    {
+      "number": 13,
+      "src": "/slides/proposal-v03/slide-13.webp",
+      "sha256": "473a99b625bfc2678f4dee64a14faed392313a4b95548250b45824840a6c17e8",
+      "bytes": 72616
+    },
+    {
+      "number": 14,
+      "src": "/slides/proposal-v03/slide-14.webp",
+      "sha256": "54af39ec0ad63c4da63a37b6a92934582093c8796c5bdb4ad6209618c8a2b8f8",
+      "bytes": 82018
+    },
+    {
+      "number": 15,
+      "src": "/slides/proposal-v03/slide-15.webp",
+      "sha256": "429e5f3acf046fe3027187bfaaf0ac51e05bdd1abdffe33c507f2e8852066572",
+      "bytes": 67044
+    },
+    {
+      "number": 16,
+      "src": "/slides/proposal-v03/slide-16.webp",
+      "sha256": "b1665ec5cfc0e3048906ce45805d37fd0d7dd1b93664a104e3751d082253ced0",
+      "bytes": 2910898
+    },
+    {
+      "number": 17,
+      "src": "/slides/proposal-v03/slide-17.webp",
+      "sha256": "89c70bc221d547da1f941245895e1b5c2eaa85b538517b40f7b69760277f8fbc",
+      "bytes": 1241544
+    },
+    {
+      "number": 18,
+      "src": "/slides/proposal-v03/slide-18.webp",
+      "sha256": "042fd6abbde6a0d561afe61c53ee4f9d383223f41615b2a95e364ec6f5cfb269",
+      "bytes": 77648
+    },
+    {
+      "number": 19,
+      "src": "/slides/proposal-v03/slide-19.webp",
+      "sha256": "a09842cd894631d6c6255bd08110510eb28f3a56a8779d4c8f15a94e5bced969",
+      "bytes": 75532
+    },
+    {
+      "number": 20,
+      "src": "/slides/proposal-v03/slide-20.webp",
+      "sha256": "08259ebfc2fd657796e69c69253b85f13362f2e16b4b9b70df9e75becc23801d",
+      "bytes": 65852
+    },
+    {
+      "number": 21,
+      "src": "/slides/proposal-v03/slide-21.webp",
+      "sha256": "aeb38f474f253dd0137dcc063de25a3dddf6c208004f442694fb268f32ec4dee",
+      "bytes": 76926
+    },
+    {
+      "number": 22,
+      "src": "/slides/proposal-v03/slide-22.webp",
+      "sha256": "1e0629824d1f3f30a447be1573e95807af781977be7eeff28ce6bd3466940369",
+      "bytes": 1788014
+    },
+    {
+      "number": 23,
+      "src": "/slides/proposal-v03/slide-23.webp",
+      "sha256": "e77fb6fb862e437fbf91922dc94423dd6253b99d6ef7077317e2b9b64498f64f",
+      "bytes": 76100
+    },
+    {
+      "number": 24,
+      "src": "/slides/proposal-v03/slide-24.webp",
+      "sha256": "847ab077a3d031ff62420856957048a0f4c8c1b6b6d75fb3951f02fb39665c96",
+      "bytes": 77326
+    },
+    {
+      "number": 25,
+      "src": "/slides/proposal-v03/slide-25.webp",
+      "sha256": "6e2d7f6ba7e135233f84a5c90f3b9c83de5739db54659996e2aa22408162767d",
+      "bytes": 64266
+    },
+    {
+      "number": 26,
+      "src": "/slides/proposal-v03/slide-26.webp",
+      "sha256": "300a161375216d0b592e2e8ad2c8795d7742c20ecf7da9167c6ed9cf4cc7297d",
+      "bytes": 80524
+    },
+    {
+      "number": 27,
+      "src": "/slides/proposal-v03/slide-27.webp",
+      "sha256": "800145860f7676710cf831859e41b2f7855567d8f5c411be7b6dd2bddda8509f",
+      "bytes": 68964
+    },
+    {
+      "number": 28,
+      "src": "/slides/proposal-v03/slide-28.webp",
+      "sha256": "b2dc6c1149e06181e95cba3c8edc0a3021a37330b14c176cdee2399f328418d6",
+      "bytes": 100920
+    },
+    {
+      "number": 29,
+      "src": "/slides/proposal-v03/slide-29.webp",
+      "sha256": "b9df374d3130e4c90a48c50bb06d3fadd0a60216a4a91156dc6647d3fafe0ea6",
+      "bytes": 71296
+    },
+    {
+      "number": 30,
+      "src": "/slides/proposal-v03/slide-30.webp",
+      "sha256": "0ec84782bfbd3cfb9635a61288e80a924506024b721416e94ee1f27c2456003c",
+      "bytes": 951420
+    }
+  ]
+}

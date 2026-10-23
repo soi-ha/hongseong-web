@@ -3,52 +3,58 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import ProposalSection from '../components/ProposalSection.astro';
 import ProposalPhoto from '../components/ProposalPhoto.astro';
 import { getProposal, groups } from '../lib/proposal';
+import deck from '../content/proposal-slides.json';
 import '../styles/proposal.css';
 const sections = await getProposal();
 const cover = sections[0]!;
+const slides = deck.slides.map((slide, index) => ({ ...slide, section: sections[index],
+  label: sections[index]?.category ?? '클로징',
+  title: sections[index]?.title.replace(/<[^>]*>/g, '') ?? 'THANK YOU' }));
 ---
-<BaseLayout title="홍성 관광객 유치 제안 A안·B안" description="미식·해안·체험을 잇는 홍성 체류 프로그램. 궁리 1박 코스와 월별 브랜드 모임을 검토하는 v02 내부 제안서." activePage="proposal" customHeading>
+<BaseLayout title="홍성 관광객 유치 제안 A안·B안" description="최신 제안 PPT v03과 같은 30쪽 슬라이드. 궁리 1박 코스와 월별 브랜드 모임의 내부 검토본." activePage="proposal" customHeading>
   <h1 class="sr-only">홍성 관광객 유치 제안 A안·B안</h1>
   <div class="proposal-reader" id="proposal-reader">
     <nav class="proposal-navigation" aria-label="제안서 내부 목차">
-      <div class="container toc-inner"><a class="toc-cover" href="#top">표지</a><ol>{groups.map((group, index) => <li><a href={`#${group.id}`} data-start-page={group.from}><span class="toc-number">{String(index + 1).padStart(2, '0')}</span>{group.label}</a></li>)}</ol></div>
+      <div class="container toc-inner"><a class="toc-cover" href="#top">표지</a><ol>{groups.map((group, index) => <li><a href={'#' + group.id} data-start-page={group.from}><span class="toc-number">{String(index + 1).padStart(2, '0')}</span>{group.label}</a></li>)}</ol></div>
     </nav>
-    <div class="reader-surface">
-      <div class="reader-stage" id="reader-stage" role="region" aria-label="제안서 페이지" tabindex="-1">
-        {sections.map(section => <div class="proposal-page container" data-page={section.number} data-page-label={section.category} data-theme={section.number >= 16 ? 'dark' : undefined} hidden={section.number !== 1}>
-          {groups.filter(group => group.from === section.number).map(group => <span id={group.id} class="page-anchor" aria-hidden="true" />)}
-          {section.number === 1 ? <section id="top" class="proposal-hero" data-source-page="1" aria-labelledby="proposal-title">
-            <div class="hero-grid">
-              <div class="hero-copy">
-                <p class="document-meta"><span class="review-mark">내부 검토본</span><span>제안 v02 · OCT 2026</span></p>
-                <p class="hero-eyebrow">홍성 관광객 유치 제안 A안·B안</p>
-                <h2 id="proposal-title" class="display-title" lang="en"><span>BEAUTIFUL</span>{' '}<span>STAY</span>{' '}<span>HONGSEONG</span></h2>
-                <div class="hero-description prose" set:html={cover.html} />
-                <div class="hero-actions"><a class="primary-link" href="#plan-a">A안 살펴보기 <span aria-hidden="true">↗</span></a><a class="text-link" href="#plan-b">B안 살펴보기 <span aria-hidden="true">↗</span></a></div>
-              </div>
-              {cover.photo && <ProposalPhoto photo={cover.photo} eager />}
-            </div>
-            <div class="source-notes cover-notes" set:html={cover.notes} />
-          </section> : <ProposalSection section={section} />}
+    <div class="reader-surface" data-theme="dark">
+      <div class="reader-stage" id="reader-stage" role="region" aria-label="제안서 슬라이드" aria-describedby="reader-keyboard-help" tabindex="-1">
+        {slides.map(({number, src, label, title, section}) => <div class="proposal-page" data-page={number} data-page-label={label} data-theme={number === 1 || number >= 16 ? 'dark' : undefined} hidden={number !== 1}>
+          {groups.filter(group => group.from === number).map(group => <span id={group.id} class="page-anchor" aria-hidden="true" />)}
+          <img class="slide-artwork" src={src} width={deck.width} height={deck.height}
+            alt={number + ' / ' + slides.length + ' · ' + label + ' · ' + title} loading={number === 1 ? 'eager' : 'lazy'}
+            fetchpriority={number === 1 ? 'high' : 'auto'} decoding="async" />
+          <div class="slide-text container" hidden>
+            {number === 1 ? <section id="top" class="proposal-hero" data-source-page="1" aria-labelledby="proposal-title">
+              <h2 id="proposal-title" class="display-title" lang="en">BEAUTIFUL STAY HONGSEONG</h2>
+              <div class="prose" set:html={cover.html} />
+              {cover.photo && <ProposalPhoto photo={cover.photo} />}
+              <div class="source-notes" set:html={cover.notes} />
+            </section> : section ? <ProposalSection section={section} total={slides.length} /> :
+              <section id="page-30" aria-labelledby="closing-title"><h2 id="closing-title" class="display-title" lang="en">THANK YOU</h2><p>홍성 관광객 유치 제안 · 클로징</p></section>}
+          </div>
         </div>)}
       </div>
-      <nav class="reader-controls" aria-label="페이지 넘기기">
+      <nav class="reader-controls" aria-label="슬라이드 조작">
         <div class="container reader-controls-inner">
-          <button class="page-arrow" id="previous-page" type="button" aria-label="이전 페이지" aria-controls="reader-stage" disabled><span aria-hidden="true">←</span><span class="arrow-label">이전</span></button>
           <div class="reader-position">
-            <label class="sr-only" for="page-select">페이지 선택</label>
-            <select id="page-select" aria-controls="reader-stage">{sections.map(section => <option value={section.number}>{String(section.number).padStart(2, '0')}. {section.category}</option>)}</select>
-            <span id="page-counter" aria-live="polite" aria-atomic="true">1 / {sections.length}</span>
+            <span id="page-counter" aria-live="polite" aria-atomic="true">1 / {slides.length}</span>
+            <button class="reader-text-toggle" id="text-toggle" type="button" aria-pressed="false" aria-controls="reader-stage">본문·출처</button>
           </div>
-          <button class="page-arrow" id="next-page" type="button" aria-label="다음 페이지" aria-controls="reader-stage"><span class="arrow-label">다음</span><span aria-hidden="true">→</span></button>
+          <div class="reader-actions">
+            <button class="reader-fullscreen" id="fullscreen-toggle" type="button" aria-pressed="false" aria-label="전체 화면 시작" title="전체 화면 시작 (F)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5" /></svg><span class="fullscreen-label">전체 화면</span></button>
+            <div class="page-arrows">
+              <button class="page-arrow" id="previous-page" type="button" aria-label="이전 슬라이드" aria-controls="reader-stage" title="이전 슬라이드 (←)" disabled><span aria-hidden="true">←</span><span class="arrow-label">이전</span></button>
+              <button class="page-arrow" id="next-page" type="button" aria-label="다음 슬라이드" aria-controls="reader-stage" title="다음 슬라이드 (→)"><span class="arrow-label">다음</span><span aria-hidden="true">→</span></button>
+            </div>
+          </div>
         </div>
       </nav>
+      <p id="reader-status" class="reader-status" role="status" hidden></p>
     </div>
+    <p id="reader-keyboard-help" class="sr-only">좌우 방향키로 이전·다음 슬라이드 이동. Home은 처음, End는 마지막. F는 전체 화면, Esc는 전체 화면 종료. 본문·출처 버튼으로 텍스트와 출처 열람.</p>
   </div>
-  <noscript>
-    <style>body:has(.proposal-reader){height:auto;overflow:auto}.proposal-reader,.reader-surface{display:block}.reader-stage{overflow:visible}.proposal-page[hidden]{display:block}.proposal-page{padding-block:2rem}.reader-controls{display:none}</style>
-    <p class="container">페이지 넘기기를 사용하려면 JavaScript를 켜 주세요. 현재는 모든 페이지를 이어서 표시합니다.</p>
-  </noscript>
+  <noscript><style>body:has(.proposal-reader){height:auto;overflow:auto}.proposal-reader,.reader-surface,.reader-stage{display:block;overflow:visible}.proposal-page[hidden],.slide-text[hidden]{display:block!important}.proposal-page{height:auto;padding-block:2rem}.slide-artwork{height:auto}.reader-controls{display:none}</style><p class="container">페이지 넘기기를 사용하려면 JavaScript를 켜 주세요. 현재는 모든 슬라이드와 본문을 이어서 표시합니다.</p></noscript>
 </BaseLayout>
 <script>
   import '../scripts/proposal-reader';
