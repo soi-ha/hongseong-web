@@ -1,0 +1,16 @@
+---
+import { getIdeaPhoto, type Idea } from '../content/ideas';
+interface Props { idea: Idea }
+const { idea } = Astro.props;
+const photo = getIdeaPhoto(idea.photo);
+---
+<article class="idea-card" aria-labelledby={`card-${idea.slug}`}>
+  <div class="idea-card-image"><img src={photo.src} alt={photo.alt} width={photo.width} height={photo.height} loading="lazy" decoding="async" /></div>
+  <div class="idea-card-content">
+    <span class="idea-card-meta">{idea.label}</span>
+    <h3 id={`card-${idea.slug}`}>{idea.title}</h3>
+    <p class="idea-card-summary">{idea.summary}</p>
+    <dl class="idea-card-facts">{idea.facts.filter(fact => fact.title === '운영 구상' || fact.title === '개최 방식').map(fact => <div><dt>{fact.title}</dt><dd>{fact.text}</dd></div>)}</dl>
+    <a class="idea-button" href={`/ideas/${idea.slug}/`} data-idea-detail-link={`card-${idea.slug}`}>{idea.linkLabel}<span aria-hidden="true">→</span></a>
+  </div>
+</article>

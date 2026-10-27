@@ -1,0 +1,15 @@
+---
+import IdeaContent from './IdeaContent.astro';
+import type { IdeaSection } from '../content/ideas';
+interface Props { section: IdeaSection }
+const { section } = Astro.props;
+---
+<section id={section.id} class="idea-section" aria-labelledby={`${section.id}-title`}>
+  <h2 id={`${section.id}-title`}>{section.title}</h2>
+  {section.subtitle && <h3 class="idea-section-subtitle">{section.subtitle}</h3>}
+  <IdeaContent content={section} />
+  {section.more && <details class="idea-disclosure" id={`${section.id}-more`}>
+    <summary>{section.more.label}</summary>
+    <IdeaContent content={section.more} plainLinks />
+  </details>}
+</section>

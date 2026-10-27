@@ -1,0 +1,11 @@
+---
+import { getResearch, researchPath } from '../content/research';
+interface Props { slug: string }
+const entry = getResearch(Astro.props.slug);
+---
+<article class="idea-research-card" aria-labelledby={`case-${entry.slug}`}>
+  <p class="idea-card-meta">{entry.period}</p>
+  <h3 id={`case-${entry.slug}`}>{entry.title}</h3>
+  <dl><div><dt>운영 방식</dt><dd>{entry.operationSummary}</dd></div><div><dt>홍성에 참고한 요소</dt><dd>{entry.hongseongTakeaway}</dd></div></dl>
+  <a class="idea-button" href={`${researchPath(entry.slug)}?from=rally`} data-research-link aria-label={`${entry.title} · 사례 자세히 보기`}>사례 자세히 보기 <span aria-hidden="true">→</span></a>
+</article>

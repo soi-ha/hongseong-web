@@ -1,12 +1,14 @@
 ---
 import { SITE_NAME, SITE_PAGES, SITE_ICONS, type SitePage } from '../config/site';
+import deck from '../content/proposal-slides.json';
 
 interface Props {
-  activePage: SitePage;
+  activePage?: SitePage;
 }
 
 const { activePage } = Astro.props;
-// Site-level navigation only. Proposal section links belong inside that page.
+const downloadSize = `${(deck.download.bytes / 1_000_000).toFixed(1)} MB`;
+// Site navigation and the shared PDF download; section navigation stays in the body.
 ---
 
 <header class="site-header">
@@ -24,6 +26,12 @@ const { activePage } = Astro.props;
             </a>
           </li>
         ))}
+        <li>
+          <a class="header-download" id="pdf-download" data-theme="dark" href={deck.download.src} download={deck.download.filename} type="application/pdf" aria-label={`PDF 다운로드 · ${deck.pageCount}쪽 · ${downloadSize}`} title={deck.download.filename}>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" /></svg>
+            <span>PDF 다운로드</span>
+          </a>
+        </li>
       </ul>
     </nav>
   </div>

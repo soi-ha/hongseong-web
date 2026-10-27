@@ -1,52 +1,85 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import ProposalSources from '../components/ProposalSources.astro';
-import { getProposal, groups } from '../lib/proposal';
-import deck from '../content/proposal-slides.json';
-import '../styles/proposal.css';
-const sections = await getProposal();
-const slides = deck.slides.map((slide, index) => ({ ...slide,
-  label: sections[index]?.category ?? '클로징',
-  title: sections[index]?.title.replace(/<[^>]*>/g, '') ?? 'THANK YOU' }));
+import IdeaCard from '../components/IdeaCard.astro';
+import IdeaPhoto from '../components/IdeaPhoto.astro';
+import IdeaSection from '../components/IdeaSection.astro';
+import IdeaSectionNav from '../components/IdeaSectionNav.astro';
+import { ideas, policySection, PASS_HREF, IDEA_PRINCIPLE } from '../content/ideas';
+import '../styles/ideas.css';
+const programs = ideas.filter(idea => idea.kind !== 'pass');
+const pass = ideas.find(idea => idea.kind === 'pass')!;
+const sections = [
+  { id: 'introduction', label: '기획 의도' },
+  { id: 'flow', label: '참여 흐름' },
+  { id: 'programs', label: 'A·B 프로그램' },
+  { id: 'stay-pass', label: '홍성 패스' },
+  { id: policySection.id, label: '정책 연결' },
+];
 ---
-<BaseLayout title="홍성 관광객 유치 제안 A안·B안" browserTitle="제안서" description="제안 PPT v03 기반 30쪽 슬라이드와 디자인 가이드 v16 표지·클로징. 궁리 1박 코스와 월별 브랜드 모임의 내부 검토본." activePage="proposal" customHeading>
-  <h1 class="sr-only">홍성 관광객 유치 제안 A안·B안</h1>
-  <div class="proposal-reader" id="proposal-reader">
-    <nav class="proposal-navigation" aria-label="제안서 내부 목차">
-      <div class="container toc-inner"><a class="toc-cover" href="#top">표지</a><ol>{groups.map((group, index) => <li><a href={'#' + group.id} data-start-page={group.from}><span class="toc-number">{String(index + 1).padStart(2, '0')}</span>{group.label}</a></li>)}</ol></div>
-    </nav>
-    <div class="reader-surface">
-      <div class="reader-stage" id="reader-stage" role="region" aria-label="제안서 슬라이드" aria-describedby="reader-keyboard-help" tabindex="-1">
-        {slides.map(({number, src, label, title}) => <div class="proposal-page" id={`page-${String(number).padStart(2, '0')}`} data-page={number} data-page-label={label} hidden={number !== 1}>
-          {number === 1 && <span id="top" class="page-anchor" aria-hidden="true" />}
-          {groups.filter(group => group.from === number).map(group => <span id={group.id} class="page-anchor" aria-hidden="true" />)}
-          <img class="slide-artwork" src={src} width={deck.width} height={deck.height}
-            alt={number + ' / ' + slides.length + ' · ' + label + ' · ' + title} loading={number === 1 ? 'eager' : 'lazy'}
-            fetchpriority={number === 1 ? 'high' : 'auto'} decoding="async" />
-        </div>)}
+<BaseLayout title="아이디어" description="궁리 체험 코스와 홍성 관광 랠리, 숙박 선택 이후의 공통 홍성 패스. 홍성의 기존 풍경과 장소를 잇는 기획 검토안." activePage="ideas" customHeading mainClass="ideas-main">
+  <div class="container ideas-shell">
+    <IdeaSectionNav sections={sections} />
+    <div class="ideas-index" data-ideas-list data-section-content>
+    <header id="introduction" class="ideas-cover">
+      <div>
+        <p class="idea-eyebrow">홍성 아이디어 · 기획 검토안</p>
+        <h1>{IDEA_PRINCIPLE.split(', ').map((phrase, index) => <span>{phrase}{index < 2 ? ', ' : ''}</span>)}</h1>
+        <p class="idea-lead">홍성의 바다와 항구, 천수만 노을을 경험하는 여행 제안.</p>
+        <p class="ideas-intro">자연을 보존하며 기존 장소의 매력을 전하고, 어촌계·상권과 함께 다시 찾고 머물 이유 마련.</p>
       </div>
-      <nav class="reader-controls" aria-label="슬라이드 조작">
-        <div class="container reader-controls-inner">
-          <div class="reader-position">
-            <span id="page-counter" aria-live="polite" aria-atomic="true">1 / {slides.length}</span>
-            <button class="reader-source-button" id="source-button" type="button" aria-haspopup="dialog" aria-controls="source-dialog">출처</button>
+      <IdeaPhoto photoKey="gungri_new_5.jpg" eager />
+    </header>
+    <section id="flow" class="ideas-flow" aria-labelledby="flow-title">
+      <div class="ideas-section-heading"><h2 id="flow-title">프로그램 참여 흐름</h2></div>
+      <ol class="ideas-flow-track">
+        <li class="ideas-flow-step">
+          <span class="ideas-flow-number" aria-hidden="true">01</span>
+          <div>
+            <h3>두 프로그램을 즐기고</h3>
+            <ul class="ideas-flow-options">{programs.map(idea => <li><span>{idea.label}</span><a class="ideas-flow-link" href={`/ideas/${idea.slug}/`} data-idea-detail-link={`flow-${idea.slug}`}>{idea.title}</a></li>)}</ul>
           </div>
-          <div class="reader-actions">
-            <button class="reader-fullscreen" id="fullscreen-toggle" type="button" aria-pressed="false" aria-label="전체 화면 시작" title="전체 화면 시작 (F)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5" /></svg><span class="fullscreen-label">전체 화면</span></button>
-            <div class="page-arrows">
-              <button class="page-arrow" id="previous-page" type="button" aria-label="이전 슬라이드" aria-controls="reader-stage" title="이전 슬라이드 (←)" disabled><span aria-hidden="true">←</span><span class="arrow-label">이전</span></button>
-              <button class="page-arrow" id="next-page" type="button" aria-label="다음 슬라이드" aria-controls="reader-stage" title="다음 슬라이드 (→)"><span class="arrow-label">다음</span><span aria-hidden="true">→</span></button>
-            </div>
+          <svg class="ideas-flow-arrow" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16m-7-7 7 7-7 7" /></svg>
+        </li>
+        <li class="ideas-flow-step">
+          <span class="ideas-flow-number" aria-hidden="true">02</span>
+          <div>
+            <h3>숙박 여부 선택</h3>
+            <p>하루 일정으로 마치거나,<br />홍성에서 하룻밤 더 머무는 선택.</p>
           </div>
+          <svg class="ideas-flow-arrow" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4 12h16m-7-7 7 7-7 7" /></svg>
+        </li>
+        <li class="ideas-flow-step">
+          <span class="ideas-flow-number" aria-hidden="true">03</span>
+          <div>
+            <h3>숙박을 선택하면 홍성 패스로</h3>
+            <p>별밤 프로그램·현장 굿즈와<br />여행 후 환급 연계 검토.</p>
+            <a class="ideas-flow-link ideas-flow-detail" href={PASS_HREF} data-idea-detail-link={`flow-${pass.slug}`}>{pass.linkLabel}</a>
+          </div>
+        </li>
+      </ol>
+    </section>
+    <section id="programs" class="ideas-programs" aria-labelledby="programs-title">
+      <div class="ideas-section-heading"><h2 id="programs-title">홍성을 즐기는 두 가지 프로그램</h2></div>
+      <ul class="idea-grid">{programs.map(idea => <li><IdeaCard idea={idea} /></li>)}</ul>
+    </section>
+    <section id="stay-pass" class="ideas-pass" aria-labelledby="pass-title">
+      <div class="ideas-section-heading"><h2 id="pass-title">하룻밤 더 머물고 싶다면</h2></div>
+      <div class="ideas-pass-content">
+        <IdeaPhoto photoKey={pass.photo} />
+        <div class="ideas-pass-copy">
+          <p class="idea-card-meta">숙박 선택 이후의 공통 프로그램</p>
+          <h3>{pass.title}</h3>
+          <p>A안 체험 코스나 B안 관광 랠리를 즐긴 뒤 홍성에서 숙박을 선택한 사람을 위한 프로그램. 다른 홍성 행사와의 연계도 검토.</p>
+          <p>별밤 프로그램과 현장 굿즈, 여행 후 지역상품권 환급 연계로 홍성의 밤과 지역 소비를 잇는 구상.</p>
+          <a class="idea-button" href={PASS_HREF} data-idea-detail-link={`card-${pass.slug}`}>{pass.linkLabel}<span aria-hidden="true">→</span></a>
         </div>
-      </nav>
-      <p id="reader-status" class="reader-status" role="status" hidden></p>
+      </div>
+    </section>
+    <IdeaSection section={policySection} />
     </div>
-    <ProposalSources sections={sections} total={slides.length} />
-    <p id="reader-keyboard-help" class="sr-only">좌우 방향키로 이전·다음 슬라이드 이동. Home은 처음, End는 마지막. F는 전체 화면, Esc는 전체 화면 종료. 출처 버튼으로 현재 슬라이드의 관련 링크와 주석 열람.</p>
   </div>
-  <noscript><style>body:has(.proposal-reader){height:auto;overflow:auto}.proposal-reader,.reader-surface,.reader-stage{display:block;overflow:visible}.proposal-page[hidden]{display:block!important}.proposal-page{height:auto;padding-block:2rem;container-type:normal;display:block}.slide-artwork{width:80%;height:auto;margin-inline:auto}.reader-controls{display:none}</style><p class="container">페이지 넘기기와 출처 모달을 사용하려면 JavaScript를 켜 주세요. 현재는 모든 슬라이드를 이어서 표시합니다.</p></noscript>
 </BaseLayout>
 <script>
-  import '../scripts/proposal-reader';
+  import '../scripts/ideas-navigation';
+  import '../scripts/ideas-sections';
 </script>

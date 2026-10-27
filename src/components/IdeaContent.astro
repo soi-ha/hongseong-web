@@ -1,0 +1,36 @@
+---
+import IdeaPhoto from './IdeaPhoto.astro';
+import ResearchCaseCard from './ResearchCaseCard.astro';
+import ResearchTopicCard from './ResearchTopicCard.astro';
+import type { IdeaBody } from '../content/ideas';
+interface Props { content: IdeaBody; plainLinks?: boolean }
+const { content, plainLinks = false } = Astro.props;
+---
+<div class="idea-content">
+  {content.paragraphs?.map(paragraph => <p>{paragraph}</p>)}
+  {content.steps && <ol class="idea-steps">{content.steps.map((step, index) => <li>
+    <span class="idea-step-number" aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
+    <div><h3>{step.title}</h3><p>{step.text}</p></div>
+  </li>)}</ol>}
+  {content.entries && <dl class="idea-entries">{content.entries.map(entry => <div>
+    <dt>{entry.title}</dt><dd>{entry.text}</dd>
+  </div>)}</dl>}
+  {content.table && <table class="idea-table">
+    <caption>{content.table.caption}</caption>
+    <thead><tr>{content.table.columns.map(column => <th scope="col">{column}</th>)}</tr></thead>
+    <tbody>{content.table.rows.map(row => <tr>{row.map((cell, index) => index === 0
+      ? <th scope="row">{cell}</th>
+      : <td><span class="table-cell-label" aria-hidden="true">{content.table!.columns[index]}</span>{cell}</td>
+    )}</tr>)}</tbody>
+  </table>}
+  {content.trailingParagraphs?.map(paragraph => <p>{paragraph}</p>)}
+  {content.photo && <IdeaPhoto photoKey={content.photo} />}
+  {content.researchCards && <div class="idea-research-cards">{content.researchCards.map(slug => <ResearchCaseCard slug={slug} />)}</div>}
+  {content.policyResearch && <div class="idea-research-cards idea-policy-cards">{content.policyResearch.map(slug => <ResearchTopicCard slug={slug} />)}</div>}
+  {content.notes && content.notes.length > 0 && <div class="idea-notes" aria-label="조건과 확인 사항">{content.notes.map(note => <p>{note}</p>)}</div>}
+  {content.links && <ul class="idea-content-links">{content.links.map(link => <li>
+    <a href={link.href} class:list={{'idea-button':!plainLinks && link.href.startsWith('/research/')}} data-research-link={link.href.startsWith('/research/') || undefined}>
+      {link.label}<span aria-hidden="true"> →</span>
+    </a>
+  </li>)}</ul>}
+</div>

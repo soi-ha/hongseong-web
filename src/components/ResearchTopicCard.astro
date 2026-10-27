@@ -1,0 +1,11 @@
+---
+import { getResearch, researchPath } from '../content/research';
+interface Props { slug: string }
+const entry = getResearch(Astro.props.slug);
+---
+<article class="idea-research-card idea-policy-card" aria-labelledby={`policy-topic-${entry.slug}`}>
+  <p class="idea-card-meta">자료조사 · 정책 해설</p>
+  <h3 id={`policy-topic-${entry.slug}`}>{entry.title}</h3>
+  <p class="idea-policy-summary">{entry.summary}</p>
+  <a class="idea-button" href={`${researchPath(entry.slug)}?from=home`} data-research-link aria-label={`${entry.title} · 자료조사에서 읽기`}>자료조사에서 읽기 <span aria-hidden="true">→</span></a>
+</article>
