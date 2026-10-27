@@ -1,0 +1,69 @@
+---
+import type { GetStaticPaths, InferGetStaticPropsType } from 'astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import IdeaSectionNav from '../../components/IdeaSectionNav.astro';
+import { researchEntries, researchPath } from '../../content/research';
+import '../../styles/ideas.css';
+import '../../styles/research.css';
+export const getStaticPaths = (() => researchEntries.map(entry => ({params: {slug: entry.slug}, props: {entry}}))) satisfies GetStaticPaths;
+type Props = InferGetStaticPropsType<typeof getStaticPaths>;
+const { entry } = Astro.props;
+const listHref = `/research/#research-card-${entry.slug}`;
+const origins = ['stay-tourism-policy','local-extinction-fund-2026','population-decline-designation','half-price-travel-2026'].includes(entry.slug) ? [{key:'home',href:'/#policy',label:'홈 · 정책 연결로 돌아가기'}]
+  : entry.slug === 'hongseong-refund' ? [{key:'pass',href:'/ideas/hongseong-stay-pass/#refund',label:'홍성 패스 · 환급 안내로 돌아가기'}]
+  : ['toyota-tgr-rally-play','gangwon-eco-rally-2019'].includes(entry.slug) ? [{key:'rally',href:'/ideas/gungri-brand-meetup/#references',label:'홍성 관광 랠리 · 참고 사례로 돌아가기'}] : [];
+const splitPolicy = ['stay-tourism-policy','hongseong-refund'].includes(entry.slug);
+const related = splitPolicy ? researchEntries.find(other => other.slug === (entry.slug === 'stay-tourism-policy' ? 'hongseong-refund' : 'stay-tourism-policy')) : undefined;
+const sectionId = (index:number) => `research-${entry.slug}-section-${index}`;
+const sections = [...entry.sections.map((section,index)=>({id:sectionId(index),label:section.heading})),{id:'sources',label:'출처와 원문 확인'}];
+---
+<BaseLayout title={entry.title} description={entry.summary} activePage="research" customHeading mainClass="ideas-main">
+  <div class="container ideas-shell">
+    <IdeaSectionNav sections={sections} title="자료 목차" label={`${entry.title} 내부 목차`} detail />
+    <article class="research-article" data-section-content data-research-detail>
+      <nav class="research-breadcrumb" aria-label="현재 위치"><a href="/research/">자료조사</a><span aria-hidden="true">›</span><span aria-current="location">{entry.title}</span></nav>
+      <div class="research-return-links">
+        {origins.map(origin => <a class="research-back" href={origin.href} data-research-return data-research-origin={origin.key} hidden>{origin.label}</a>)}
+        <a class="research-back" href={listHref} data-research-return>자료조사 목록으로</a>
+      </div>
+      <header class="research-detail-header" id={`research-${entry.slug}`}>
+        <p class="research-detail-category">{entry.category}</p>
+        <h1 class="research-detail-title" id={`research-title-${entry.slug}`}>{entry.title}</h1>
+        <p>{entry.summary}</p>
+        <p class="research-detail-period">자료 기준 · {entry.period}</p>
+      </header>
+      {entry.sections.map((section,index) => <section class="research-section" id={sectionId(index)} aria-labelledby={`${sectionId(index)}-title`}>
+        {section.legacyIds?.map(id=><span class="research-anchor" id={id} />)}
+        <h2 id={`${sectionId(index)}-title`}>{section.heading}</h2>
+        {section.paragraphs.map(paragraph=><p>{paragraph.text}{paragraph.sourceIds.length>0 && <span class="research-citations">{paragraph.sourceIds.map(id=>{
+          const sourceIndex=entry.sources.findIndex(source=>source.id===id);
+          return <a class="research-citation" href={`#research-${entry.slug}-source-${id}`} aria-label={`출처 ${sourceIndex+1}: ${entry.sources[sourceIndex]?.title}`}>[{sourceIndex+1}]</a>;
+        })}</span>}</p>)}
+      </section>)}
+      {related && <aside class="research-related"><p>함께 구분해 읽을 자료</p><a href={researchPath(related.slug)}>{related.title} →</a></aside>}
+      <section class="research-section" id="sources" aria-labelledby="sources-title">
+        <details class="research-source-disclosure" data-research-sources>
+        <summary><h2 id="sources-title">출처와 원문 확인</h2></summary>
+        <span class="research-anchor" id={`research-${entry.slug}-sources`} />
+        <p class="research-sources-intro">발표일·대상연도·확인일을 구분한 기록. 아래 ‘원문 확인’은 외부 사이트로 이동하며 같은 탭에서 열기.</p>
+        <ol class="research-sources">{entry.sources.map((source,index)=><li class="research-source" id={`research-${entry.slug}-source-${source.id}`} tabindex="-1">
+          {splitPolicy && <span class="research-anchor" id={`research-hongseong-refund-policy-source-${source.id}`} />}
+          <h3>[{index+1}] {source.title}</h3>
+          <dl>
+            <div><dt>발행기관</dt><dd>{source.publisher}</dd></div><div><dt>자료 성격</dt><dd>{source.type}</dd></div>
+            <div><dt>발표일</dt><dd>{source.publishedAt}</dd></div><div><dt>대상연도</dt><dd>{source.coverage}</dd></div>
+            {source.pages && <div><dt>쪽수</dt><dd>{source.pages}</dd></div>}<div><dt>확인일</dt><dd>{source.checkedAt}</dd></div>
+          </dl>
+          {source.note && <p class="research-source-note">{source.note}</p>}
+          <a class="research-external" href={source.url}>원문 확인 <span>· 외부 사이트 ↗</span><span class="ideas-sr-only"> · {source.title}</span></a>
+        </li>)}</ol>
+        </details>
+      </section>
+      <footer class="research-detail-footer research-return-links">
+        {origins.map(origin=><a class="research-back" href={origin.href} data-research-return data-research-origin={origin.key} hidden>{origin.label}</a>)}
+        <a class="research-back" href={listHref} data-research-return>자료조사 목록으로</a>
+      </footer>
+    </article>
+  </div>
+</BaseLayout>
+<script>import '../../scripts/ideas-sections';</script>

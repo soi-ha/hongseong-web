@@ -1,10 +1,27 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { researchEntries, researchPath, legacyResearchLinks } from '../content/research';
+import '../styles/research.css';
 ---
-
-<BaseLayout title="자료조사" description="홍성 자료조사 내용을 준비하고 있습니다." activePage="research">
-  <section class="preparation" aria-labelledby="preparation-title">
-    <h2 id="preparation-title">준비 중</h2>
-    <p>홍성 기획에 참고할 조사자료를 정리하고 있습니다.</p>
-  </section>
+<BaseLayout title="자료조사" description="홍성의 관광자원·사례·정책을 주제별 상세 페이지에서 읽는 자료실." activePage="research" customHeading>
+  <div class="research-page" data-research-list>
+    <h1>자료조사</h1>
+    <p class="research-intro">홍성의 관광자원과 체류 프로그램, 국내외 사례, 관광 통계와 정책 정리. 주제별 상세에서 설명·확인 범위·원출처 확인.</p>
+    <div class="research-list-heading"><h2 id="research-list-title">조사 주제 {researchEntries.length}개</h2><p>사례·정책 설명과 원문을 함께 확인.</p></div>
+    <ol class="research-grid">
+      {researchEntries.map(entry => <li>
+        {entry.slug === 'hongseong-refund' && <span id="research-card-hongseong-refund-policy" />}
+        {entry.slug === 'hongseong-refund' && <span id="research-card-title-hongseong-refund-policy" />}
+        <a class="research-card" id={`research-card-${entry.slug}`} href={`${researchPath(entry.slug)}?from=research`} data-research-link aria-labelledby={`research-card-title-${entry.slug}`}>
+          <div class="research-card-meta"><span class="research-card-number">{String(entry.id).padStart(2, '0')}</span><span>{entry.category}</span></div>
+          <h3 id={`research-card-title-${entry.slug}`}>{entry.title}</h3>
+          <p class="research-card-summary">{entry.summary}</p>
+          <div class="research-card-footer"><span class="research-card-period">자료 기준 · {entry.period}</span><span class="research-card-action">자세히 보기 →</span></div>
+        </a>
+      </li>)}
+    </ol>
+    <div class="research-legacy-links" aria-label="이전 자료 주소 연결">
+      {legacyResearchLinks.map(link => <a id={link.id} href={link.href} data-legacy-research-url={link.href}>해당 자료 내용으로 이동</a>)}
+    </div>
+  </div>
 </BaseLayout>

@@ -1,0 +1,13 @@
+---
+interface Props {
+  sections: { id: string; label: string }[];
+  title?: string;
+  label?: string;
+  detail?: boolean;
+}
+const { sections, title = '아이디어 목차', label = '아이디어 섹션 목차', detail = false } = Astro.props;
+---
+<nav class:list={['ideas-section-nav', { 'ideas-section-nav--detail': detail }]} aria-label={label} data-section-nav>
+  <p class="ideas-section-nav-title">{title}</p>
+  <ol>{sections.map((section, index) => <li><a href={`#${section.id}`} aria-current={index === 0 ? 'location' : undefined}><span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{section.label}</a></li>)}</ol>
+</nav>

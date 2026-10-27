@@ -7,7 +7,7 @@ interface Props {
   title: string;
   browserTitle?: string;
   description: string;
-  activePage: SitePage;
+  activePage?: SitePage;
   customHeading?: boolean;
   mainClass?: string;
 }
@@ -32,10 +32,11 @@ const { title, browserTitle = title, description, activePage, customHeading = fa
   <body>
     <a class="skip-link" href="#main-content">본문으로 이동</a>
     <SiteHeader activePage={activePage} />
-    <main id="main-content" class:list={['main-content', mainClass, { container: !customHeading, 'proposal-main': customHeading && activePage === 'proposal' }]} tabindex="-1">
+    <main id="main-content" class:list={['main-content', mainClass, { container: !customHeading }]} tabindex="-1">
       {!customHeading && <h1>{title}</h1>}
       <slot name="page-navigation" />
       <slot />
     </main>
   </body>
 </html>
+<script>import '../scripts/research-navigation';</script>
