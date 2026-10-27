@@ -9,6 +9,5 @@ const photo = getIdeaPhoto(photoKey);
     loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : 'auto'} decoding="async" />
   <figcaption>
     <span>{photo.caption}</span>
-    <a href={photo.page_url} target="_blank" rel="noopener noreferrer" aria-label={`사진 출처: ${photo.provider} (새 탭)`}>출처 ↗</a>
   </figcaption>
 </figure>
