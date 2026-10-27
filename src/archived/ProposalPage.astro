@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import deck from '../content/proposal-slides.json';
+import '../styles/proposal.css';
+const { slides, groups, download } = deck;
+const downloadSize = `${(download.bytes / 1_000_000).toFixed(1)} MB`;
+---
+<BaseLayout title="홍성 관광객 유치 제안 A안·B안" browserTitle="제안서" description={`최종 편집 PDF ${deck.version} · ${deck.pageCount}쪽. 궁리 체험 코스·궁리항 월별 브랜드 모임·공통 홍성 패스. 원본 PDF 열람과 다운로드.`} customHeading mainClass="proposal-main">
+  <h1 class="sr-only">홍성 관광객 유치 제안 A안·B안</h1>
+  <div class="proposal-reader" id="proposal-reader">
+    <nav class="proposal-navigation" aria-label="제안서 내부 목차">
+      <div class="container toc-inner"><a class="toc-cover" href="#top" data-start-page="1">표지</a><ol>{groups.map(group => <li><a href={'#' + group.id} data-start-page={group.from}><span class="toc-number">{String(group.from).padStart(2, '0')}쪽</span>{group.label}</a></li>)}</ol></div>
+    </nav>
+    <div class="reader-surface">
+      <div class="reader-stage" id="reader-stage" role="region" aria-label="제안서 슬라이드" aria-describedby="reader-keyboard-help" tabindex="-1">
+        {slides.map(({number, src, label, title, width, height, pixelWidth, pixelHeight}) => <div class="proposal-page" id={`page-${String(number).padStart(2, '0')}`} data-page={number} data-page-label={`${label} · ${title}`} style={`--slide-ratio: ${width / height}`} hidden={number !== 1}>
+          {number === 1 && <span id="top" class="page-anchor" aria-hidden="true" />}
+          {groups.filter(group => group.from === number).map(group => <span id={group.id} class="page-anchor" aria-hidden="true" />)}
+          {deck.legacyAnchors.filter(anchor => anchor.page === number).map(anchor => <span id={anchor.id} class="page-anchor" aria-hidden="true" />)}
+          <img class="slide-artwork" src={src} width={pixelWidth} height={pixelHeight}
+            alt={number + ' / ' + slides.length + ' · ' + label + ' · ' + title} loading={number === 1 ? 'eager' : 'lazy'}
+            fetchpriority={number === 1 ? 'high' : 'auto'} decoding="async" />
+        </div>)}
+      </div>
+      <nav class="reader-controls" aria-label="슬라이드 조작">
+        <div class="container reader-controls-inner">
+          <div class="reader-position">
+            <span id="page-counter" aria-live="polite" aria-atomic="true">1 / {slides.length}</span>
+          </div>
+          <div class="reader-actions">
+            <button class="reader-fullscreen" id="fullscreen-toggle" type="button" aria-pressed="false" aria-label="전체 화면 시작" title="전체 화면 시작 (F)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5" /></svg><span class="fullscreen-label">전체 화면</span></button>
+            <div class="page-arrows">
+              <button class="page-arrow" id="previous-page" type="button" aria-label="이전 슬라이드" aria-controls="reader-stage" title="이전 슬라이드 (←)" disabled><span aria-hidden="true">←</span><span class="arrow-label">이전</span></button>
+              <button class="page-arrow" id="next-page" type="button" aria-label="다음 슬라이드" aria-controls="reader-stage" title="다음 슬라이드 (→)" disabled={slides.length === 1}><span class="arrow-label">다음</span><span aria-hidden="true">→</span></button>
+            </div>
+          </div>
+        </div>
+      </nav>
+      <p id="reader-status" class="reader-status" role="status" hidden></p>
+    </div>
+    <p id="reader-keyboard-help" class="sr-only">좌우 방향키로 이전·다음 슬라이드 이동. Home은 처음, End는 마지막. F는 전체 화면, Esc는 전체 화면 종료. 아래 제안서 자료 영역의 PDF 다운로드 버튼으로 화면과 같은 최종 PDF 저장.</p>
+  </div>
+  <section class="proposal-download" data-theme="dark" aria-labelledby="proposal-download-title">
+    <div class="container">
+      <h2 id="proposal-download-title">제안서 자료</h2>
+      <p class="proposal-download-intro">화면에서 보신 제안서를 PDF 파일로 내려받을 수 있습니다.</p>
+      <div class="proposal-download-row">
+        <div class="proposal-download-info">
+          <p class="download-format">PDF DOCUMENT</p>
+          <h3>홍성 관광객 유치 제안 A안·B안</h3>
+          <p class="download-size">{deck.pageCount}쪽 · {downloadSize}</p>
+        </div>
+      <a class="reader-download" id="archived-pdf-download" href={download.src} download={download.filename} type="application/pdf" aria-label={`PDF 다운로드 · ${deck.pageCount}쪽 · ${downloadSize}`} title={download.filename}>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 3v12m-5-5 5 5 5-5M4 16v5h16v-5" /></svg>
+        <span>PDF 다운로드</span>
+      </a>
+      </div>
+    </div>
+  </section>
+  <noscript><style>body:has(.proposal-reader){height:auto;overflow:auto}.proposal-reader,.reader-surface,.reader-stage{display:block;height:auto;overflow:visible}.proposal-page[hidden]{display:block!important}.proposal-page{height:auto;padding-block:2rem;container-type:normal;display:block}.slide-artwork{width:80%;height:auto;margin-inline:auto}.reader-controls{display:none}</style><p class="container">페이지 넘기기를 사용하려면 JavaScript를 켜 주세요. 현재는 모든 페이지를 이어서 표시합니다.</p></noscript>
+</BaseLayout>
+<script>
+  import '../scripts/proposal-reader';
+</script>

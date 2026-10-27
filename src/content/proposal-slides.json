@@ -1,219 +1,491 @@
 {
-  "version": "v03",
-  "guide": "v16",
-  "width": 720,
-  "height": 405,
-  "pixelWidth": 3840,
-  "pixelHeight": 2160,
-  "sourcePptx": "261023_홍성_관광객유치_제안_A안·B안_v03.pptx",
-  "sourcePptxSha256": "f8bf0632e1b36149eadfd952f19dc7ce4037be68e04b6ebbf42b7ee3c1cbc82f",
-  "sourcePdf": "261023_홍성_관광객유치_제안_A안·B안_v03.pdf",
-  "sourcePdfSha256": "b4f2da32468aae76ad304176f66b3c5d3e6d89285791ed7751ff323ab57977f2",
-  "sourceGuide": "261023_홍성_PPT디자인가이드_v16.md",
-  "sourceGuideSha256": "74485d5fc93482089a23addaf02214d6497af6a3d101cc8042e50d3e7bca99f6",
-  "webAdjustments": {
-    "method": "remove-native-text-operators-in-memory",
-    "pages": [
-      {
-        "slide": 1,
-        "removedTextBlocks": 23,
-        "excluded": [
-          "document-name",
-          "date",
-          "condition-note"
-        ]
-      },
-      {
-        "slide": 30,
-        "removedTextBlocks": 2,
-        "excluded": [
-          "document-name",
-          "date"
-        ]
-      }
-    ]
+  "version": "v4.03",
+  "sourcePdf": "261026_홍성_관광객유치_제안_A안·B안_v4.03.pdf",
+  "sourcePdfSha256": "1e6e5f58f28e9c0979b91ea6d22dba585e531ed2263764432624edafc3359188",
+  "pageCount": 32,
+  "sourceBytes": 4929975,
+  "renderLongEdge": 3840,
+  "webAdjustments": [],
+  "sourceModal": "omitted: previous MD page mappings do not apply to this final PDF",
+  "renderer": "PyMuPDF 1.26.5; Pillow 11.3.0; lossless WebP; RGB; annotations included",
+  "download": {
+    "src": "/downloads/proposal-1e6e5f58f28e9c09.pdf",
+    "filename": "261026_홍성_관광객유치_제안_A안·B안_v4.03.pdf",
+    "bytes": 4929975,
+    "sha256": "1e6e5f58f28e9c0979b91ea6d22dba585e531ed2263764432624edafc3359188"
   },
-  "renderer": "PyMuPDF 1.26.5; Pillow 11.3.0; lossless WebP",
+  "groups": [
+    {
+      "id": "contents",
+      "label": "목차",
+      "from": 2
+    },
+    {
+      "id": "overview",
+      "label": "제안 개요",
+      "from": 3
+    },
+    {
+      "id": "plan-a",
+      "label": "A안 궁리 체험 코스",
+      "from": 4
+    },
+    {
+      "id": "plan-b",
+      "label": "B안 홍성 관광 랠리",
+      "from": 14
+    },
+    {
+      "id": "stay-pass",
+      "label": "홍성 패스와 정책 연결",
+      "from": 25
+    },
+    {
+      "id": "comparison",
+      "label": "두 안 비교·추진 일정",
+      "from": 29
+    },
+    {
+      "id": "appendix",
+      "label": "수치와 출처",
+      "from": 31
+    },
+    {
+      "id": "closing",
+      "label": "클로징",
+      "from": 32
+    }
+  ],
+  "legacyAnchors": [
+    {
+      "id": "operation-a",
+      "page": 8
+    },
+    {
+      "id": "results-a",
+      "page": 11
+    },
+    {
+      "id": "operation-b",
+      "page": 24
+    }
+  ],
   "slides": [
     {
       "number": 1,
-      "src": "/slides/proposal-v03/slide-01.webp",
-      "sha256": "c1ee8120ca295a2137d964457f6565bf682bbdadb59494016d49662ba19e9249",
-      "bytes": 933522
+      "title": "BEAUTIFUL STAY HONGSEONG",
+      "label": "표지",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-01-572601bbd2d480c9.webp",
+      "sha256": "572601bbd2d480c9e52ef0b8f81175a9548466688e95c44f17c4e44544141f80",
+      "bytes": 934938
     },
     {
       "number": 2,
-      "src": "/slides/proposal-v03/slide-02.webp",
-      "sha256": "abfab5d7a6ab755321a6be8ecd7e93824f8afd6617dfc66680e63ff57faf94c9",
-      "bytes": 49364
+      "title": "낮 프로그램 두 가지와 공통 숙박 연계",
+      "label": "목차",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-02-25920110406506ce.webp",
+      "sha256": "25920110406506ce72fe8d07177932cca245eedac250f0c464e668d3802c09f4",
+      "bytes": 51860
     },
     {
       "number": 3,
-      "src": "/slides/proposal-v03/slide-03.webp",
-      "sha256": "7360b5342d98ad16a5ae15dac4de0c472b170feca66b60558c5bc4557ce29ea7",
-      "bytes": 68706
+      "title": "낮에는 홍성을 즐기고, 홍성 패스로 하룻밤 체류 연결",
+      "label": "제안 개요",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-03-edf022c5c1fb24f5.webp",
+      "sha256": "edf022c5c1fb24f5750d3cca24661319dd91dad886d32be824b6e7c567a575be",
+      "bytes": 80080
     },
     {
       "number": 4,
-      "src": "/slides/proposal-v03/slide-04.webp",
-      "sha256": "756c6b471d634c2f06d1ba1eb23e5814a350e221902b918c3b8c30acc247f264",
-      "bytes": 1417772
+      "title": "궁리 체험 코스",
+      "label": "A안 궁리 체험 코스",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-04-91bf46dd1ba20b36.webp",
+      "sha256": "91bf46dd1ba20b3636ef9029b92aaa57dca66156ed3d8a214524ab8e3a200579",
+      "bytes": 1413198
     },
     {
       "number": 5,
-      "src": "/slides/proposal-v03/slide-05.webp",
-      "sha256": "6aeea8597e6d68057e7e1888dc21863411655fbc342c71e8652ccb86f2b314d7",
-      "bytes": 1476510
+      "title": "궁리항에서 놀고, 천수만 노을까지 즐기는 하루",
+      "label": "궁리 체험 코스",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-05-3621df7ca5359aa1.webp",
+      "sha256": "3621df7ca5359aa12294f31ddf8f755b62da99dd6f73756a3b097a47819c07cd",
+      "bytes": 1487776
     },
     {
       "number": 6,
-      "src": "/slides/proposal-v03/slide-06.webp",
-      "sha256": "83e35503605597ae836a411b11ab0f46b2d8ca9f22d100697df17ba72c32d7d5",
-      "bytes": 58774
+      "title": "궁리항 낮 체험과 천수만 노을, 이후 홍성 패스 연결",
+      "label": "체험 코스 일정",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-06-40cf956f0b7a7424.webp",
+      "sha256": "40cf956f0b7a7424feebab1f98cb1c08918c8932c736a6dd524ba6bcd09d48b7",
+      "bytes": 71076
     },
     {
       "number": 7,
-      "src": "/slides/proposal-v03/slide-07.webp",
-      "sha256": "52d6cdd0c10f601ab463e7e52dc481d9d0ffe2516904f0c7612d4eff014b42e1",
-      "bytes": 82260
+      "title": "궁리항과 천수만 해안의 기존 장소 활용",
+      "label": "장소 구성",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-07-07dd2f0222dfbfdc.webp",
+      "sha256": "07dd2f0222dfbfdc7664ace6281d4a6ac2f101dab3fd9be91e45af421a8766c0",
+      "bytes": 529506
     },
     {
       "number": 8,
-      "src": "/slides/proposal-v03/slide-08.webp",
-      "sha256": "dc17100ad4e6890efe4994ecff0ae793c10b3b0ea6bb65c2a20b3cd38399ca3a",
-      "bytes": 521108
+      "title": "체험 코스 운영과 공통 숙박 연계의 역할 구분",
+      "label": "운영 체계",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-08-0d00d4c9d3a96550.webp",
+      "sha256": "0d00d4c9d3a96550ad7e3ebccde863d7624ce92af5543d5621af6ac8f6a85739",
+      "bytes": 86036
     },
     {
       "number": 9,
-      "src": "/slides/proposal-v03/slide-09.webp",
-      "sha256": "42403b4eb88c8daa3635e6289d51091c5b8f7e1564d9b3a6a2e7164946aac2c1",
-      "bytes": 86004
+      "title": "궁리항 체험과 노을을 주말 여행의 장면으로 전달",
+      "label": "A안 홍보",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-09-f3879fcabc3f088f.webp",
+      "sha256": "f3879fcabc3f088f44484ab18f5abcfb1c0890bda1e9ae0d4b3665fd71ac96a4",
+      "bytes": 1594798
     },
     {
       "number": 10,
-      "src": "/slides/proposal-v03/slide-10.webp",
-      "sha256": "fff86fb2ae32dd06419253d03fc8c1906ad0f89528f3429517dfa08dcac60a08",
-      "bytes": 1591658
+      "title": "체험·이동·식사를 하나의 코스로 연결",
+      "label": "A안 AMX 역할",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-10-e9a03792361820ea.webp",
+      "sha256": "e9a03792361820eaf0a5e3dc50493be2a4c9a9e2c24006fa95317f6ad6245b76",
+      "bytes": 54200
     },
     {
       "number": 11,
-      "src": "/slides/proposal-v03/slide-11.webp",
-      "sha256": "2416a9ae428f5162e9617d2fa567942e73b36605a08632be04d07fe4c728aafb",
-      "bytes": 53480
+      "title": "주말 체험과 어촌계 소비를 늘리고, 운영 실적을 기록",
+      "label": "A안 기대효과",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-11-6122f0491053fefa.webp",
+      "sha256": "6122f0491053fefa488598e56b45943c296aae799c894804d74f169ab5f9cc7d",
+      "bytes": 56280
     },
     {
       "number": 12,
-      "src": "/slides/proposal-v03/slide-12.webp",
-      "sha256": "e046d42d0c279843fec2b136f4cb05d4c16c05fc2338dd22e04653faab7f79b1",
-      "bytes": 56810
+      "title": "궁리 체험 코스 | 기본안 연 630명 참여 [목표]",
+      "label": "체험 코스 KPI",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-12-ba8659c7e28c970d.webp",
+      "sha256": "ba8659c7e28c970d7052cf2ccfcd409cb7126bffb8ef0240a1553ee698871f06",
+      "bytes": 70268
     },
     {
       "number": 13,
-      "src": "/slides/proposal-v03/slide-13.webp",
-      "sha256": "473a99b625bfc2678f4dee64a14faed392313a4b95548250b45824840a6c17e8",
-      "bytes": 72616
+      "title": "시작 전에 함께 정할 다섯 가지",
+      "label": "A안 협의 사항",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-13-1f065f83a71e3822.webp",
+      "sha256": "1f065f83a71e38223cfcecd068b88c6192211924b176278842008201555cb5cb",
+      "bytes": 68712
     },
     {
       "number": 14,
-      "src": "/slides/proposal-v03/slide-14.webp",
-      "sha256": "54af39ec0ad63c4da63a37b6a92934582093c8796c5bdb4ad6209618c8a2b8f8",
-      "bytes": 82018
+      "title": "홍성 관광 랠리",
+      "label": "B안 홍성 관광 랠리",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-14-c9f550789d5a48d5.webp",
+      "sha256": "c9f550789d5a48d518767e1f44623a81a8e369b87f6cb95aa7f15282000f5894",
+      "bytes": 2916764
     },
     {
       "number": 15,
-      "src": "/slides/proposal-v03/slide-15.webp",
-      "sha256": "429e5f3acf046fe3027187bfaaf0ac51e05bdd1abdffe33c507f2e8852066572",
-      "bytes": 67044
+      "title": "같은 차로 모여, 지도 속 홍성을 찾는 여행",
+      "label": "홍성 관광 랠리",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-15-bc7976fe1deb6a4e.webp",
+      "sha256": "bc7976fe1deb6a4e81bf44a9932518923a8299515c501d2b2b5a413b4ffb462b",
+      "bytes": 1702038
     },
     {
       "number": 16,
-      "src": "/slides/proposal-v03/slide-16.webp",
-      "sha256": "b1665ec5cfc0e3048906ce45805d37fd0d7dd1b93664a104e3751d082253ced0",
-      "bytes": 2910898
+      "title": "매달 다른 차와 떠나는 홍성 여행 · 1~6월",
+      "label": "월별 홍성 여행 1~6월",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-16-21afb1731f3c8470.webp",
+      "sha256": "21afb1731f3c8470234c5e89c9441d138eb67bdf62badb768fc60a8a41d0ba8e",
+      "bytes": 62178
     },
     {
       "number": 17,
-      "src": "/slides/proposal-v03/slide-17.webp",
-      "sha256": "89c70bc221d547da1f941245895e1b5c2eaa85b538517b40f7b69760277f8fbc",
-      "bytes": 1241544
+      "title": "매달 다른 차와 떠나는 홍성 여행 · 7~12월",
+      "label": "월별 홍성 여행 7~12월",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-17-64bc5966cb58f85a.webp",
+      "sha256": "64bc5966cb58f85a63fddda32b27d3d8bca159afe6b22a51e17a1daa58b4366a",
+      "bytes": 73952
     },
     {
       "number": 18,
-      "src": "/slides/proposal-v03/slide-18.webp",
-      "sha256": "042fd6abbde6a0d561afe61c53ee4f9d383223f41615b2a95e364ec6f5cfb269",
-      "bytes": 77648
+      "title": "지도와 미션북으로 만나는 홍성",
+      "label": "지도와 미션북",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-18-624a77aa56ba0482.webp",
+      "sha256": "624a77aa56ba048230a2bcabf48e90c3b07ff232c5643f0f1b3175ee938ac741",
+      "bytes": 74198
     },
     {
       "number": 19,
-      "src": "/slides/proposal-v03/slide-19.webp",
-      "sha256": "a09842cd894631d6c6255bd08110510eb28f3a56a8779d4c8f15a94e5bced969",
-      "bytes": 75532
+      "title": "당일 코스 | 홍성 관광과 궁리항 노을로 마무리하는 하루",
+      "label": "당일 코스",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-19-1bc53b8c0d2cbde8.webp",
+      "sha256": "1bc53b8c0d2cbde85d79299d03a296ec6a7edb82b2247b4d9f6a76f9001150b3",
+      "bytes": 72100
     },
     {
       "number": 20,
-      "src": "/slides/proposal-v03/slide-20.webp",
-      "sha256": "08259ebfc2fd657796e69c69253b85f13362f2e16b4b9b70df9e75becc23801d",
-      "bytes": 65852
+      "title": "1박 2일 코스 | 낮의 관광 랠리에서 별밤과 자유여행까지",
+      "label": "1박 2일 코스",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-20-5af2a8cd31453b99.webp",
+      "sha256": "5af2a8cd31453b99c2103f96ef8d8b9bfc35dc39be4d00bc37bc4b079f06f37c",
+      "bytes": 80610
     },
     {
       "number": 21,
-      "src": "/slides/proposal-v03/slide-21.webp",
-      "sha256": "aeb38f474f253dd0137dcc063de25a3dddf6c208004f442694fb268f32ec4dee",
-      "bytes": 76926
+      "title": "스탬프와 사진으로 남기는 홍성 여행",
+      "label": "관광 경험과 방문 인증",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-21-c51e69e857d4072f.webp",
+      "sha256": "c51e69e857d4072f6948f1d33fba1f08a98763e1cb0127dc5c688cc37a1d7719",
+      "bytes": 2654698
     },
     {
       "number": 22,
-      "src": "/slides/proposal-v03/slide-22.webp",
-      "sha256": "1e0629824d1f3f30a447be1573e95807af781977be7eeff28ce6bd3466940369",
-      "bytes": 1788014
+      "title": "당일 또는 1박 2일, 여행 일정에 맞춘 선택",
+      "label": "관광 랠리 참여 안내",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-22-07534a80b07521e2.webp",
+      "sha256": "07534a80b07521e2ad1ab6054d0427c2d7aed441f99318e82751febfb527baab",
+      "bytes": 67920
     },
     {
       "number": 23,
-      "src": "/slides/proposal-v03/slide-23.webp",
-      "sha256": "e77fb6fb862e437fbf91922dc94423dd6253b99d6ef7077317e2b9b64498f64f",
-      "bytes": 76100
+      "title": "계절에 따라 구성하는 관광 주제와 방문 장소",
+      "label": "관광 주제와 장소 후보",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-23-0362795932b42a9c.webp",
+      "sha256": "0362795932b42a9c36887e0b24e2290c740c1a0911b5764f80e9f0f9185a5486",
+      "bytes": 84658
     },
     {
       "number": 24,
-      "src": "/slides/proposal-v03/slide-24.webp",
-      "sha256": "847ab077a3d031ff62420856957048a0f4c8c1b6b6d75fb3951f02fb39665c96",
-      "bytes": 77326
+      "title": "운영 준비와 성과 확인",
+      "label": "운영 준비와 성과 확인",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-24-50450fd73efc482d.webp",
+      "sha256": "50450fd73efc482d1502f752b98c903276364b8264519afbdd08607383fdf0a4",
+      "bytes": 76918
     },
     {
       "number": 25,
-      "src": "/slides/proposal-v03/slide-25.webp",
-      "sha256": "6e2d7f6ba7e135233f84a5c90f3b9c83de5739db54659996e2aa22408162767d",
-      "bytes": 64266
+      "title": "홍성에서 머무는 밤, 별밤 체험과 굿즈·여행비 환급 연계",
+      "label": "공통 홍성 패스",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-25-46942bba4ffcfd90.webp",
+      "sha256": "46942bba4ffcfd907cf258c84d6ed773882a9980fe298abc0baa8c0fad492652",
+      "bytes": 89452
     },
     {
       "number": 26,
-      "src": "/slides/proposal-v03/slide-26.webp",
-      "sha256": "300a161375216d0b592e2e8ad2c8795d7742c20ecf7da9167c6ed9cf4cc7297d",
-      "bytes": 80524
+      "title": "A안·B안의 저녁 이후를 하나의 숙박 프로그램으로 연결",
+      "label": "홍성 패스 적용",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-26-1121331cb8b02540.webp",
+      "sha256": "1121331cb8b025401d2085663c91f29bfe4dbab2304b96ae1987432d5f9826af",
+      "bytes": 88576
     },
     {
       "number": 27,
-      "src": "/slides/proposal-v03/slide-27.webp",
-      "sha256": "800145860f7676710cf831859e41b2f7855567d8f5c411be7b6dd2bddda8509f",
-      "bytes": 68964
+      "title": "공통 홍성 패스 | 기본안 3,000명 목표의 비용·소비 시뮬레이션",
+      "label": "공통 홍성 패스 KPI",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-27-adf5435c6d1e7ec2.webp",
+      "sha256": "adf5435c6d1e7ec20d78e056b2ff880ad6f276f708af6b0f8784eeac01c814f0",
+      "bytes": 90486
     },
     {
       "number": 28,
-      "src": "/slides/proposal-v03/slide-28.webp",
-      "sha256": "b2dc6c1149e06181e95cba3c8edc0a3021a37330b14c176cdee2399f328418d6",
-      "bytes": 100920
+      "title": "생활인구와 체류 확대라는 정책 방향에 맞춘 반복 프로그램",
+      "label": "정책 연결",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-28-4b1a57cf791aff9f.webp",
+      "sha256": "4b1a57cf791aff9f4386d30a9d133fca5d875aee06ac22a47c32b1d53042c46f",
+      "bytes": 89694
     },
     {
       "number": 29,
-      "src": "/slides/proposal-v03/slide-29.webp",
-      "sha256": "b9df374d3130e4c90a48c50bb06d3fadd0a60216a4a91156dc6647d3fafe0ea6",
-      "bytes": 71296
+      "title": "A안은 궁리 체험, B안은 관광 랠리, 숙박은 공통 홍성 패스",
+      "label": "A안·B안 비교",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-29-ed860479b67c571e.webp",
+      "sha256": "ed860479b67c571e33e9b86316b087178b141185818fb62603810190d5033246",
+      "bytes": 85342
     },
     {
       "number": 30,
-      "src": "/slides/proposal-v03/slide-30.webp",
-      "sha256": "635ee6a500e1bacd41651b1cc5f32b5e8e778e268109ac6e952c575121dc74ce",
-      "bytes": 940554
+      "title": "협의 후 시범 운영으로 시작",
+      "label": "추진 일정",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-30-7c0c8a1c9e9939fa.webp",
+      "sha256": "7c0c8a1c9e9939fa0a35f3afea73044cd28a33d18bed5085fd488b53fc398cc6",
+      "bytes": 61696
+    },
+    {
+      "number": 31,
+      "title": "수치의 적용 범위와 확보할 원문",
+      "label": "수치와 출처",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-31-43cfaf4d6528dd15.webp",
+      "sha256": "43cfaf4d6528dd157fe109286a70f0f72d620ec469c1fd266070be8daa152850",
+      "bytes": 85816
+    },
+    {
+      "number": 32,
+      "title": "THANK YOU",
+      "label": "클로징",
+      "width": 720.0,
+      "height": 405.0,
+      "rotation": 0,
+      "pixelWidth": 3840,
+      "pixelHeight": 2160,
+      "src": "/slides/proposal-1e6e5f58f28e9c09/page-32-05cd4e10b4e6eafe.webp",
+      "sha256": "05cd4e10b4e6eafec6c8efd4fd53c50c48b72adbae0a8609bb7e2053e6cbc5a2",
+      "bytes": 939820
     }
   ]
 }

@@ -1,5 +1,5 @@
 /** Native fullscreen and the in-window presentation fallback. */
-export function setupPresentation(reader: HTMLElement, sourceDialog: HTMLDialogElement) {
+export function setupPresentation(reader: HTMLElement) {
   const stage = reader.querySelector<HTMLElement>('.reader-stage')!;
   const controls = reader.querySelector<HTMLElement>('.reader-controls')!;
   const fullscreen = reader.querySelector<HTMLButtonElement>('#fullscreen-toggle')!;
@@ -15,7 +15,7 @@ export function setupPresentation(reader: HTMLElement, sourceDialog: HTMLDialogE
     reader.classList.remove('controls-idle');
     clearTimeout(idleTimer);
     if (presenting) idleTimer = setTimeout(() => {
-      if (!sourceDialog.open && !controls.contains(document.activeElement)) reader.classList.add('controls-idle');
+      if (!controls.contains(document.activeElement)) reader.classList.add('controls-idle');
     }, 2200);
   }
 
@@ -30,9 +30,9 @@ export function setupPresentation(reader: HTMLElement, sourceDialog: HTMLDialogE
     fullscreen.title = label + (value ? ' (Esc)' : ' (F)');
     fullscreen.querySelector('.fullscreen-label')!.textContent = value ? '전체 화면 종료' : '전체 화면';
     if (value) {
-      if (!sourceDialog.open) stage.focus({ preventScroll: true });
+      stage.focus({ preventScroll: true });
     } else {
-      if (!sourceDialog.open) fullscreen.focus({ preventScroll: true });
+      fullscreen.focus({ preventScroll: true });
       clearTimeout(statusTimer);
       status.hidden = true;
     }

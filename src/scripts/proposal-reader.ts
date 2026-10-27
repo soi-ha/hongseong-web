@@ -1,4 +1,3 @@
-import { setupSourceDialog } from './proposal-dialog';
 import { setupPresentation } from './proposal-presentation';
 
 const reader = document.querySelector<HTMLElement>('#proposal-reader');
@@ -8,14 +7,12 @@ if (reader) {
   const previous = reader.querySelector<HTMLButtonElement>('#previous-page')!;
   const next = reader.querySelector<HTMLButtonElement>('#next-page')!;
   const counter = reader.querySelector<HTMLElement>('#page-counter')!;
-  const sourceDialog = reader.querySelector<HTMLDialogElement>('#source-dialog')!;
   const menu = [...reader.querySelectorAll<HTMLAnchorElement>('.proposal-navigation a')];
   const menuByPage = [...menu].reverse();
   const artwork = pages.map(page => page.querySelector<HTMLImageElement>('.slide-artwork')!);
   let selectedMenu: HTMLAnchorElement | undefined;
   let current = -1;
-  const presentation = setupPresentation(reader, sourceDialog);
-  setupSourceDialog(reader, sourceDialog, () => current + 1, presentation.revealControls);
+  const presentation = setupPresentation(reader);
 
   // Resolve existing shared section links as well as direct page links.
   function pageFromHash(hash: string): number | undefined {
@@ -34,7 +31,6 @@ if (reader) {
       presentation.revealControls();
       return;
     }
-    if (sourceDialog.open) sourceDialog.close();
     const oldPage = pages[current];
     const focused = document.activeElement;
     const moveFocus = (oldPage?.contains(focused) ?? false)
@@ -83,7 +79,6 @@ if (reader) {
   previous.addEventListener('click', () => showPage(current - 1, true));
   next.addEventListener('click', () => showPage(current + 1, true));
   reader.addEventListener('click', event => {
-    if (sourceDialog.open) return;
     const link = (event.target as Element).closest<HTMLAnchorElement>('a[href^="#"]');
     if (!link || (event as MouseEvent).metaKey || (event as MouseEvent).ctrlKey || (event as MouseEvent).shiftKey || (event as MouseEvent).altKey) return;
     const index = pageFromHash(link.hash);
@@ -92,11 +87,11 @@ if (reader) {
     showPage(index, true);
   });
   document.addEventListener('keydown', event => {
-    // The native modal owns focus, Escape and scrolling while it is open.
-    if (sourceDialog.open) return;
     if (event.altKey || event.ctrlKey || event.metaKey || event.defaultPrevented || !(event.target instanceof Element)) return;
     const target = event.target;
     if (target.closest('input, textarea, select, [contenteditable]')) return;
+    // The document section below the viewer keeps normal scrolling/link keys.
+    if (!presentation.isPresenting() && target.closest('.proposal-download')) return;
     if (event.key === 'Escape' && presentation.isPresenting()) {
       event.preventDefault();
       void presentation.toggle();
